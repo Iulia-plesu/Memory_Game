@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using MAP_Game.Model;
+using MAP_Game.Helpers;
+using MAP_Game.Helpers;
+using MAP_Game.Model;
 
-namespace MAP_Game
+namespace MAP_Game.ViewModel
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
@@ -29,18 +27,20 @@ namespace MAP_Game
         public ICommand PlayCommand { get; }
         public ICommand DeleteCommand { get; }
         public ICommand AddUserCommand { get; }
+        public ICommand CancelCommand { get; }
 
         public LoginViewModel()
         {
             Users = new ObservableCollection<LoginModel>
-        {
-    new LoginModel { Username = "John", ImagePath = @"C:\Users\Plesu\Documents\Facultate_anul_II\Semestrul_II\MAP\MAP_Game\MAP_Game\image1.png" },
-            new LoginModel { Username = "Alice", ImagePath = "alice.png" }
-        };
+            {
+                new LoginModel { Username = "John", ImagePath = "Assets\\image1.png" },
+                new LoginModel { Username = "Alice", ImagePath = "alice.png" }
+            };
 
             PlayCommand = new RelayCommand(ExecutePlay, CanExecutePlay);
             DeleteCommand = new RelayCommand(ExecuteDelete, CanExecuteDelete);
             AddUserCommand = new RelayCommand(ExecuteAddUser);
+            CancelCommand = new RelayCommand(ExecuteCancel);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -75,6 +75,10 @@ namespace MAP_Game
             Users.Add(new LoginModel { Username = "New User", ImagePath = "default.png" });
             OnPropertyChanged(nameof(Users));
         }
-    }
 
+        private void ExecuteCancel(object parameter)
+        {
+            Application.Current.Shutdown();
+        }
+    }
 }

@@ -1,13 +1,8 @@
-﻿using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using System.Windows;
 
-namespace MAP_Game;
-
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
-public partial class App : Application
+namespace MAP_Game
 {
+    public partial class App : Application
+    {
+    }
 }
-
