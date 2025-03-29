@@ -4,8 +4,6 @@ using System.Windows;
 using System.Windows.Input;
 using MAP_Game.Model;
 using MAP_Game.Helpers;
-using MAP_Game.Helpers;
-using MAP_Game.Model;
 
 namespace MAP_Game.ViewModel
 {
@@ -16,7 +14,7 @@ namespace MAP_Game.ViewModel
         private LoginModel _selectedUser;
         public LoginModel SelectedUser
         {
-            get { return _selectedUser; }
+            get => _selectedUser ?? new LoginModel { ImagePath = "pack://application:,,,/Assets/image1.png" }; // Ensure default image
             set
             {
                 _selectedUser = value;
@@ -33,8 +31,8 @@ namespace MAP_Game.ViewModel
         {
             Users = new ObservableCollection<LoginModel>
             {
-                new LoginModel { Username = "John", ImagePath = "Assets\\image1.png" },
-                new LoginModel { Username = "Alice", ImagePath = "alice.png" }
+                new LoginModel { Username = "John", ImagePath = "pack://application:,,,/Assets/image2.png" },
+                new LoginModel { Username = "Alice", ImagePath = "pack://application:,,,/Assets/image3.png" }
             };
 
             PlayCommand = new RelayCommand(ExecutePlay, CanExecutePlay);
@@ -65,6 +63,7 @@ namespace MAP_Game.ViewModel
             {
                 Users.Remove(SelectedUser);
                 OnPropertyChanged(nameof(Users));
+                OnPropertyChanged(nameof(SelectedUser)); // Refresh the image
             }
         }
 
@@ -72,7 +71,7 @@ namespace MAP_Game.ViewModel
 
         private void ExecuteAddUser(object parameter)
         {
-            Users.Add(new LoginModel { Username = "New User", ImagePath = "default.png" });
+            Users.Add(new LoginModel { Username = "New User", ImagePath = "pack://application:,,,/Assets/default.png" });
             OnPropertyChanged(nameof(Users));
         }
 
