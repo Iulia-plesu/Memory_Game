@@ -6,14 +6,14 @@ using MAP_Game.Model;
 using MAP_Game.Helpers;
 using System.IO;
 using System.Text.Json;
+using System.Xml;
 
 
 namespace MAP_Game.ViewModel
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
-        private const string UserFilePath = "Assets/users.json"; // adjust path if needed
-
+        private const string UserFilePath = @"C:\Users\Plesu\Desktop\WPF_Game\MAP_Game\Assets\users.json";
         public ObservableCollection<LoginModel> Users { get; set; }
 
         private LoginModel _selectedUser;
@@ -65,15 +65,33 @@ namespace MAP_Game.ViewModel
         {
             try
             {
-                var json = JsonSerializer.Serialize(Users, new JsonSerializerOptions { WriteIndented = true });
-                Directory.CreateDirectory(Path.GetDirectoryName(UserFilePath));
+                // Create an object with 'users' as a property wrapping the Users list
+                var usersData = new
+                {
+                    users = Users // Wrap the Users collection in a property called 'users'
+                };
+
+                // Serialize the object into a JSON string
+                var json = JsonSerializer.Serialize(usersData, new JsonSerializerOptions { WriteIndented = true });
+
+                // Ensure the directory exists before saving the file
+                var directory = Path.GetDirectoryName(UserFilePath);
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                // Write the JSON data to the file
                 File.WriteAllText(UserFilePath, json);
+
+                MessageBox.Show($"Users saved to {UserFilePath} successfully.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to save users: {ex.Message}");
+                MessageBox.Show($"Failed to save users to {UserFilePath}: {ex.Message}");
             }
         }
+
 
         private void ExecutePlay(object parameter)
         {
@@ -92,20 +110,43 @@ namespace MAP_Game.ViewModel
             if (SelectedUser != null)
             {
                 Users.Remove(SelectedUser);
-                SaveUsers();
+                SaveUsers(); 
                 OnPropertyChanged(nameof(Users));
                 OnPropertyChanged(nameof(SelectedUser));
             }
         }
 
+
         private bool CanExecuteDelete(object parameter) => SelectedUser != null;
 
         private void ExecuteAddUser(object parameter)
         {
-            var newUser = new LoginModel { Username = "New User", ImagePath = "Assets/default.png" };
-            Users.Add(newUser);
-            SaveUsers();
-            OnPropertyChanged(nameof(Users));
+            var addUserWindow = new View.NewUserWindow
+            {
+                Owner = Application.Current.MainWindow
+            };
+
+            if (addUserWindow.ShowDialog() == true)
+            {
+                var newUser = new LoginModel
+                {
+                    Username = addUserWindow.Username,
+                    ImagePath = addUserWindow.SelectedImagePath
+                };
+
+                Users.Add(newUser);
+                MessageBox.Show($"Added user: {newUser.Username}");
+
+                // Debug output
+                Console.WriteLine($"User count before save: {Users.Count}");
+                foreach (var user in Users)
+                {
+                    Console.WriteLine($"{user.Username} - {user.ImagePath}");
+                }
+
+                SaveUsers();
+                OnPropertyChanged(nameof(Users));
+            }
         }
 
         private void ExecuteCancel(object parameter)

@@ -1,0 +1,11 @@
+﻿<Window x:Class="MAP_Game.Views.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About" Height="300" Width="400">
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBlock Text="Student: [Student Name]" FontSize="16" FontWeight="Bold"/>
+        <TextBlock Text="Group: [Group Number]" />
+        <TextBlock Text="Specialization: [Specialization]" />
+        <TextBlock Text="Email: [Institution Email]" />
+    </StackPanel>
+</Window>
