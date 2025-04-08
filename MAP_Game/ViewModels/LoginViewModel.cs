@@ -51,9 +51,13 @@ namespace MAP_Game.ViewModel
         {
             if (SelectedUser != null)
             {
-                MessageBox.Show($"Starting game for {SelectedUser.Username}");
+                var gameWindow = new View.GameWindow();
+                gameWindow.Show();
+
+                Application.Current.Windows[0]?.Close();
             }
         }
+
 
         private bool CanExecutePlay(object parameter) => SelectedUser != null;
 
