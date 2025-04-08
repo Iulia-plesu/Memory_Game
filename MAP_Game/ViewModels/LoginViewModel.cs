@@ -91,8 +91,8 @@ namespace MAP_Game.ViewModel
         {
             if (SelectedUser != null)
             {
-                var gameWindow = new View.GameWindow();
-                gameWindow.Show();
+                var fileWindow = new View.FileWindow();
+                fileWindow.ShowDialog();
                 Application.Current.Windows[0]?.Close();
             }
         }
