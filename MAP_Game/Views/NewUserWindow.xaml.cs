@@ -8,11 +8,11 @@ namespace MAP_Game.View
     {
         private readonly List<string> _imagePaths = new()
         {
-            "Assets/image1.png",
-            "Assets/image2.png",
-            "Assets/image3.png",
-            "Assets/image4.png",
-            "Assets/image5.png",
+            "image1.png",
+            "image2.png",
+            "image3.png",
+            "image4.png",
+            "image5.png",
         };
 
         private int _currentImageIndex = 0;
@@ -28,17 +28,17 @@ namespace MAP_Game.View
 
         private void UpdateImage()
         {
-            string relativePath = _imagePaths[_currentImageIndex];
-            string fullPath = $"pack://application:,,,/{relativePath}";
+            string imageName = _imagePaths[_currentImageIndex];
+            string relativePath = $"../Assets/{imageName}";  
 
-            ImagePreview.Source = new BitmapImage(new System.Uri(fullPath));
-            SelectedImagePath = relativePath;
+            ImagePreview.Source = new BitmapImage(new System.Uri($"pack://application:,,,/Assets/{imageName}"));
+            SelectedImagePath = relativePath;  
         }
 
         private void Left_Click(object sender, RoutedEventArgs e)
         {
             _currentImageIndex = (_currentImageIndex - 1 + _imagePaths.Count) % _imagePaths.Count;
-            UpdateImage();
+            UpdateImage(); 
         }
 
         private void Right_Click(object sender, RoutedEventArgs e)

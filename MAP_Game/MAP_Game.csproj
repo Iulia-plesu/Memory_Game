@@ -14,13 +14,6 @@
     <None Remove="Assets\image3.png" />
     <None Remove="Assets\image4.png" />
     <None Remove="Assets\image5.png" />
-    <None Remove="Assets\users.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Assets\users.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
