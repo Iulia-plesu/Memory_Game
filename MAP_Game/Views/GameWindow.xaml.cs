@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MAP_Game.ViewModel;
+using System;
 using System.IO;
 using System.Windows;
 
@@ -18,50 +19,56 @@ namespace MAP_Game.View
 
         public GameWindow(string selectedCategory)
         {
-            InitializeComponent();
-            _selectedCategory = selectedCategory;
+            try
+            {
+                InitializeComponent();
+                _selectedCategory = selectedCategory;
 
-            //CategoryText.Text = $"Selected Category: {_selectedCategory}";
+                var images = LoadCategoryImages();
+                Console.WriteLine($"Loaded {images.Count} images from category"); // Debug
 
-            // Load images for the selected category
-            LoadCategoryImages();
+                if (images.Count < 8) // Minimum for 4x4 grid
+                {
+                    MessageBox.Show($"Need at least 8 images, found {images.Count}. Using test data.");
+                    images = Enumerable.Range(1, 8).Select(i => $"/Assets/TestImage{i}.png").ToList();
+                }
+
+                DataContext = new GameViewModel(selectedCategory, images);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to initialize game: {ex.Message}");
+                Close();
+            }
+            Loaded += (s, e) => {
+                var vm = DataContext as GameViewModel;
+                Console.WriteLine($"Token count: {vm?.Tokens?.Count}");
+                if (vm?.Tokens != null)
+                {
+                    foreach (var token in vm.Tokens)
+                    {
+                        Console.WriteLine($"Token: {token.ImagePath}, FaceUp: {token.IsFaceUp}");
+                    }
+                }
+            };
         }
 
-        private void LoadCategoryImages()
+        private List<string> LoadCategoryImages()
         {
-            // Check if the selected category exists in the dictionary
             if (CategoryPaths.ContainsKey(_selectedCategory))
             {
                 string categoryPath = CategoryPaths[_selectedCategory];
 
-                // Check if the directory exists
                 if (Directory.Exists(categoryPath))
                 {
-                    // Get all PNG images in the selected category folder
-                    var images = Directory.GetFiles(categoryPath, "*.png");
-
-                    if (images.Length > 0)
-                    {
-                        // Here you would load the images into your game, for now, we'll output to console
-                        foreach (var image in images)
-                        {
-                            Console.WriteLine(image); // Replace this with actual game logic to load and display images
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No images found in the selected category.");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show($"The selected category path does not exist: {categoryPath}");
+                    var images = Directory.GetFiles(categoryPath, "*.png").ToList();
+                    Console.WriteLine($"Found {images.Count} images in category");
+                    return images;
                 }
             }
-            else
-            {
-                MessageBox.Show("Invalid category selected.");
-            }
+            MessageBox.Show("Category path not found or no images available");
+            return new List<string>();
         }
+
     }
 }

@@ -1,5 +1,4 @@
-﻿using MAP_Game.Helpers;
-using MAP_Game.Model;
+﻿using MAP_Game.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -35,10 +34,10 @@ namespace MAP_Game.ViewModel
         {
             Users = LoadUsers();
 
-            PlayCommand = new RelayCommand(ExecutePlay, CanExecutePlay);
-            DeleteCommand = new RelayCommand(ExecuteDelete, CanExecuteDelete);
-            AddUserCommand = new RelayCommand(ExecuteAddUser);
-            CancelCommand = new RelayCommand(ExecuteCancel);
+            PlayCommand = new RelayCommand<object>((parameter) => ExecutePlay(parameter));  // Pass parameter to ExecutePlay
+            DeleteCommand = new RelayCommand<object>((parameter) => ExecuteDelete(parameter));  // Pass parameter to ExecuteDelete
+            AddUserCommand = new RelayCommand<object>((parameter) => ExecuteAddUser(parameter));  // Pass parameter to ExecuteAddUser
+            CancelCommand = new RelayCommand<object>((parameter) => ExecuteCancel(parameter));  // Pass parameter to ExecuteCancel
         }
 
         private ObservableCollection<LoginModel> LoadUsers()

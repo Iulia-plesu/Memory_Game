@@ -20,7 +20,6 @@ namespace MAP_Game.View
             if (!string.IsNullOrWhiteSpace(categoryWindow.SelectedCategory))
             {
                 SelectedCategory = categoryWindow.SelectedCategory;
-                MessageBox.Show($"Category selected: {SelectedCategory}");
             }
         }
 

@@ -1,30 +1,66 @@
-﻿<Window xmlns:local="clr-namespace:MAP_Game.Converters" 
+﻿<Window xmlns:local="clr-namespace:MAP_Game.Converters"
         x:Class="MAP_Game.View.GameWindow"
+        
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Game Window" Height="600" Width="800">
+        Title="Game Window" Height="600" Width="800"
+        SizeToContent="WidthAndHeight">
 
-    <Window.DataContext>
-        <Binding Path="GameViewModel"/>
-    </Window.DataContext>
+    <Window.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
-    <Grid>
-        <UniformGrid Rows="4" Columns="4">
-            <!-- Display the cards (jetons) -->
-            <ItemsControl ItemsSource="{Binding Cards}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Command="{Binding DataContext.CardClickCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                CommandParameter="{Binding}"
-                                Width="100" Height="100"
-                                Background="LightGray">
-                            <Button.Content>
-                                <Image Source="{Binding ImagePath}" Visibility="{Binding IsFaceUp, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                            </Button.Content>
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </UniformGrid>
+        <!-- Template for the ItemsControl that will create a uniform grid -->
+        <ItemsPanelTemplate x:Key="UniformGridPanel">
+            <UniformGrid Columns="{Binding Columns}" Rows="{Binding Rows}"/>
+        </ItemsPanelTemplate>
+
+        <!-- Style for buttons to make them square and responsive -->
+        <Style x:Key="CardButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Height" Value="120"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+        <!-- ItemsControl with UniformGrid for adaptable layout -->
+        <ItemsControl ItemsSource="{Binding Tokens}" 
+                      ItemsPanel="{StaticResource UniformGridPanel}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Command="{Binding DataContext.CardClickCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+
+                            CommandParameter="{Binding}"
+                            Style="{StaticResource CardButtonStyle}">
+                        <Button.Content>
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <!-- Face-down image -->
+                                <Image Source="{Binding ImagePath}"
+                                   Visibility="{Binding IsFaceUp, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                   Stretch="Uniform"/>
+
+                                <Image Stretch="Uniform">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Source" Value="/MAP_Game;component/Assets/FaceDownImage.jpg"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsFaceUp}" Value="True">
+                                                    <Setter Property="Source" Value="{Binding ImagePath}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+
+
+                            </Grid>
+                        </Button.Content>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </Window>
