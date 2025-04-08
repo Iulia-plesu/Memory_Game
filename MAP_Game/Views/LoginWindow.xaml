@@ -31,7 +31,7 @@
             <Image Width="100" Height="100">
                 <Image.Style>
                     <Style TargetType="Image">
-                        <Setter Property="Source" Value="{Binding SelectedUser.ImagePath}" />
+                        <Setter Property="Source" Value="{Binding SelectedUser.DisplayImagePath}" />
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding SelectedUser}" Value="{x:Null}">
                                 <Setter Property="Source" Value="pack://application:,,,/Assets/image1.png" />
@@ -40,6 +40,7 @@
                     </Style>
                 </Image.Style>
             </Image>
+
             <!-- Two Buttons -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Content="←" Width="30" Height="25" Margin="5"/>

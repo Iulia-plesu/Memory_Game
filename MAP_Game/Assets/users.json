@@ -1,0 +1,10 @@
+﻿[
+  {
+    "Username": "John",
+    "ImagePath": "Assets\\image2.png"
+  },
+  {
+    "Username": "Alice",
+    "ImagePath": "Assets\\image3.png"
+  }
+]

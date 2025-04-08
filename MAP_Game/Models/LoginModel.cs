@@ -7,10 +7,19 @@
         private string _imagePath;
         public string ImagePath
         {
-            get => string.IsNullOrEmpty(_imagePath)
-                ? "pack://application:,,,/Assets/image1.png"  
-                : _imagePath;
+            get => _imagePath;
             set => _imagePath = value;
+        }
+
+        public string DisplayImagePath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ImagePath))
+                    return "pack://application:,,,/Assets/image1.png"; // fallback
+
+                return $"pack://application:,,,/{ImagePath}";
+            }
         }
     }
 }
