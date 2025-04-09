@@ -15,6 +15,19 @@ namespace MAP_Game.ViewModel
     // GameViewModel.cs modifications
     public class GameViewModel : INotifyPropertyChanged
     {
+        private bool _isGameActive;
+        public bool IsGameActive
+        {
+            get { return _isGameActive; }
+            set
+            {
+                if (_isGameActive != value)
+                {
+                    _isGameActive = value;
+                    OnPropertyChanged(nameof(IsGameActive));
+                }
+            }
+        }
         private int _rows = 4; // Default values
         private int _columns = 4;
 
@@ -66,6 +79,7 @@ namespace MAP_Game.ViewModel
         {
             try
             {
+                IsGameActive = true;
                 _selectedCategory = selectedCategory;
                 _availableImages = imagePaths ?? throw new ArgumentNullException(nameof(imagePaths));
 
@@ -81,6 +95,11 @@ namespace MAP_Game.ViewModel
                 throw; // Re-throw to see the error in debugger
             }
         }
+        public void EndGame()
+        {
+            IsGameActive = false; // Disable the game actions
+        }
+
 
         private List<string> _availableImages; // Add this field
 

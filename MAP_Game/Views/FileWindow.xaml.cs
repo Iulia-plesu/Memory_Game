@@ -5,6 +5,7 @@ namespace MAP_Game.View
     public partial class FileWindow : Window
     {
         public string SelectedCategory { get; private set; }
+        public int SelectedTime { get; private set; } // Use this property to hold the selected time
 
         public FileWindow()
         {
@@ -32,10 +33,28 @@ namespace MAP_Game.View
                 return;
             }
 
-            // Start the game with the selected category
-            var gameWindow = new GameWindow(SelectedCategory);
+            // Ensure a time limit is selected
+            if (SelectedTime == 0)
+            {
+                MessageBox.Show("Please select a time limit first.");
+                return;
+            }
+
+            // Start the game with the selected category and time limit
+            var gameWindow = new GameWindow(SelectedCategory, SelectedTime);
             gameWindow.Show();
             this.Close(); // Close the FileWindow when the game starts
+        }
+
+        private void TimeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Show a dialog to enter time limit
+            var timeInputWindow = new TimeInputWindow();
+            if (timeInputWindow.ShowDialog() == true)
+            {
+                // The user entered a valid time, store it
+                SelectedTime = timeInputWindow.TimeLimit;
+            }
         }
     }
 }
