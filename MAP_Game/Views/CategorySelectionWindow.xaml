@@ -4,8 +4,8 @@
         Title="Category Selection" Height="200" Width="400">
     <Grid>
         <ComboBox x:Name="CategoryComboBox">
-            <ComboBoxItem>Category_1</ComboBoxItem>
-            <ComboBoxItem>Category_2</ComboBoxItem>
+            <ComboBoxItem>Antarctica</ComboBoxItem>
+            <ComboBoxItem>Rustic</ComboBoxItem>
             <ComboBoxItem>Mediterranean</ComboBoxItem>
         </ComboBox>
 

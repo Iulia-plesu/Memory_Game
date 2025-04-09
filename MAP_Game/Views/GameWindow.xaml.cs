@@ -12,7 +12,9 @@ namespace MAP_Game.View
         // Define the paths for each category
         private readonly Dictionary<string, string> CategoryPaths = new()
         {
-            { "Category 1", @"C:/Users/Plesu/Desktop/WPF_Game/MAP_Game/Categories/Mediterranean" }
+            { "Category 1", @"C:/Users/Plesu/Desktop/WPF_Game/MAP_Game/Categories/Mediterranean" },
+            { "Category 2", @"C:/Users/Plesu/Desktop/WPF_Game/MAP_Game/Categories/Antarctica" },
+            { "Category 3", @"C:/Users/Plesu/Desktop/WPF_Game/MAP_Game/Categories/Rustic" }
         };
 
         public GameWindow(string selectedCategory)
