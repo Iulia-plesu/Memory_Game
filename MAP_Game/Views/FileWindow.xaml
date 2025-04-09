@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="File Window" Height="300" Width="400">
     <Grid>
-        <Button Content="Category" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="40" Margin="20" Click="CategoryButton_Click"/>
-        <Button Content="New Game" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="40" Margin="20,70,0,0" Click="NewGameButton_Click"/>
-        <Button Content="Time" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="40" Margin="20,120,0,0" Click="TimeButton_Click"/>
+        <Button Content="Category" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Height="40" Margin="0,20,0,0" Click="CategoryButton_Click"/>
+        <Button Content="New Game" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Height="40" Margin="0,70,0,0" Click="NewGameButton_Click"/>
+        <Button Content="Time" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Height="40" Margin="0,120,0,0" Click="TimeButton_Click"/>
+        <Button Content="Game size" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Height="40" Margin="0,170,0,0" Click="SizeButton_Click"/>
+
     </Grid>
 </Window>

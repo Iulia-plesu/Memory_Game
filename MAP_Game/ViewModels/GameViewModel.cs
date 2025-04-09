@@ -28,7 +28,21 @@ namespace MAP_Game.ViewModel
                 }
             }
         }
-        private int _rows = 4; // Default values
+        private double _cardWidth;
+        public double CardWidth
+        {
+            get => _cardWidth;
+            set { _cardWidth = value; OnPropertyChanged(nameof(CardWidth)); }
+        }
+
+        private double _cardHeight;
+        public double CardHeight
+        {
+            get => _cardHeight;
+            set { _cardHeight = value; OnPropertyChanged(nameof(CardHeight)); }
+        }
+
+        private int _rows = 4; 
         private int _columns = 4;
 
         public int Rows
@@ -138,9 +152,11 @@ namespace MAP_Game.ViewModel
         }
         private bool _isProcessing = false;
 
+        public Action OnGameWon { get; set; } // Add this delegate for notifying the GameWindow
+
         public void FlipToken(Token token)
         {
-            if (_isProcessing || token.IsMatched || token.IsFaceUp)
+            if (_isProcessing || token.IsMatched || token.IsFaceUp || !IsGameActive)
                 return;
 
             token.IsFaceUp = true;
@@ -157,6 +173,13 @@ namespace MAP_Game.ViewModel
                     _flippedTokens[1].IsMatched = true;
                     _flippedTokens.Clear();
                     _isProcessing = false;
+
+                    // Check for win
+                    if (Tokens.All(t => t.IsMatched))
+                    {
+                        IsGameActive = false;
+                        OnGameWon?.Invoke(); // Call back to GameWindow
+                    }
                 }
                 else
                 {

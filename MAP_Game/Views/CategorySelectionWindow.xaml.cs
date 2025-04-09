@@ -14,16 +14,17 @@ namespace MAP_Game.View
 
         private void SelectCategoryButton_Click(object sender, RoutedEventArgs e)
         {
-            // Get the selected category from the ComboBox
-            SelectedCategory = (CategoryComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            var selectedItem = CategoryComboBox.SelectedItem as ComboBoxItem;
+            SelectedCategory = selectedItem?.Content.ToString();
 
             if (string.IsNullOrWhiteSpace(SelectedCategory))
             {
-                MessageBox.Show("Please select a category.");
-                return;
+                // Set default if nothing is selected
+                SelectedCategory = "Rustic";
             }
 
             this.Close(); // Close the category selection window
         }
+
     }
 }

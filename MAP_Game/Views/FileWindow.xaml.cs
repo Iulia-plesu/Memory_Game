@@ -5,11 +5,24 @@ namespace MAP_Game.View
     public partial class FileWindow : Window
     {
         public string SelectedCategory { get; private set; }
-        public int SelectedTime { get; private set; } // Use this property to hold the selected time
+        public int SelectedTime { get; private set; }
+        public int GridRows { get; private set; } = 4;
+        public int GridColumns { get; private set; } = 4;
+
 
         public FileWindow()
         {
             InitializeComponent();
+            SelectedCategory = "Rustic";
+        }
+        private void SizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            var sizeWindow = new GridSizeInputWindow();
+            if (sizeWindow.ShowDialog() == true)
+            {
+                GridRows = sizeWindow.Rows;
+                GridColumns = sizeWindow.Columns;
+            }
         }
 
         private void CategoryButton_Click(object sender, RoutedEventArgs e)
@@ -36,12 +49,12 @@ namespace MAP_Game.View
             // Ensure a time limit is selected
             if (SelectedTime == 0)
             {
-                MessageBox.Show("Please select a time limit first.");
+                SelectedTime = 60;
                 return;
             }
 
             // Start the game with the selected category and time limit
-            var gameWindow = new GameWindow(SelectedCategory, SelectedTime);
+            var gameWindow = new GameWindow(SelectedCategory, SelectedTime, GridRows, GridColumns);
             gameWindow.Show();
             this.Close(); // Close the FileWindow when the game starts
         }

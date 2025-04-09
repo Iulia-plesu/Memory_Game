@@ -1,0 +1,14 @@
+﻿<Window x:Class="MAP_Game.View.GridSizeInputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Select Grid Size" Height="223" Width="300">
+    <StackPanel Margin="20" VerticalAlignment="Center">
+        <TextBlock Text="Rows:" Margin="0,0,0,5"/>
+        <TextBox x:Name="RowsTextBox" Margin="0,0,0,10" Text="4"/>
+
+        <TextBlock Text="Columns:" Margin="0,0,0,5"/>
+        <TextBox x:Name="ColumnsTextBox" Margin="0,0,0,10" Text="4"/>
+
+        <Button Content="Confirm" Click="ConfirmButton_Click" Height="30"/>
+    </StackPanel>
+</Window>
