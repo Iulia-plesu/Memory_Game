@@ -16,6 +16,11 @@ namespace MAP_Game.View
         private DispatcherTimer _timer;
         private int _remainingTime;
 
+        private readonly string _currentUsername;
+        private readonly LoginViewModel _loginViewModel;
+        private readonly int _originalTimeLimit;
+
+
         private readonly Dictionary<string, string> CategoryPaths = new()
         {
             { "Category 1", @"C:/Users/Plesu/Desktop/WPF_Game/MAP_Game/Categories/Mediterranean" },
@@ -23,9 +28,13 @@ namespace MAP_Game.View
             { "Category 3", @"C:/Users/Plesu/Desktop/WPF_Game/MAP_Game/Categories/Rustic" }
         };
 
-        public GameWindow(string selectedCategory = null, int timeLimitInSeconds = 0, int rows = 4, int columns = 4)
+        public GameWindow(string username, LoginViewModel loginViewModel, string selectedCategory = null, int timeLimitInSeconds = 0, int rows = 4, int columns = 4)
         {
             InitializeComponent();
+
+            _currentUsername = username;
+            _loginViewModel = loginViewModel;
+            _originalTimeLimit = timeLimitInSeconds;
 
             // Use default category if none provided
             _selectedCategory = string.IsNullOrWhiteSpace(selectedCategory) ? "Rustic" : selectedCategory;
@@ -88,10 +97,12 @@ namespace MAP_Game.View
                     _timer.Stop();
                     viewModel.EndGame();
                     MessageBox.Show("🎉 Congratulations! You matched all the cards and won the game!", "You Win", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    int timeSpent = timeLimitInSeconds - _remainingTime;
+                    _loginViewModel.UpdateStats(_currentUsername, isWin: true, timeInSeconds: timeSpent);
                 });
             };
 
-            DataContext = viewModel;
 
 
             DataContext = viewModel;
@@ -111,10 +122,13 @@ namespace MAP_Game.View
             if (_remainingTime == 0)
             {
                 _timer.Stop();
-                // Here we call EndGame on the ViewModel to disable the cards
                 ((GameViewModel)DataContext).EndGame();
                 MessageBox.Show("Time's up! The game is over.");
+
+                int timeSpent = _originalTimeLimit - _remainingTime;
+                _loginViewModel.UpdateStats(_currentUsername, isWin: false, timeInSeconds: timeSpent);
             }
+
             else
             {
                 _remainingTime--;

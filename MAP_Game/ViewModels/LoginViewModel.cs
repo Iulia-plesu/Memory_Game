@@ -5,6 +5,7 @@ using System.IO;
 using System.Text.Json;
 using System.Windows.Input;
 using System.Windows;
+using MAP_Game.View;
 
 namespace MAP_Game.ViewModel
 {
@@ -38,6 +39,29 @@ namespace MAP_Game.ViewModel
             DeleteCommand = new RelayCommand<object>((parameter) => ExecuteDelete(parameter));  // Pass parameter to ExecuteDelete
             AddUserCommand = new RelayCommand<object>((parameter) => ExecuteAddUser(parameter));  // Pass parameter to ExecuteAddUser
             CancelCommand = new RelayCommand<object>((parameter) => ExecuteCancel(parameter));  // Pass parameter to ExecuteCancel
+        }
+        public void UpdateStats(string username, bool isWin, int timeInSeconds)
+        {
+            var user = Users.FirstOrDefault(u => u.Username == username);
+            if (user == null) return;
+
+            user.GamesPlayed++;
+
+            if (isWin)
+            {
+                user.GamesWon++;
+                if (timeInSeconds < user.BestTime)
+                    user.BestTime = timeInSeconds;
+            }
+            else
+            {
+                user.GamesLost++;
+            }
+
+            if (timeInSeconds > user.WorstTime)
+                user.WorstTime = timeInSeconds;
+
+            SaveUsers();
         }
 
         private ObservableCollection<LoginModel> LoadUsers()
@@ -90,8 +114,12 @@ namespace MAP_Game.ViewModel
         {
             if (SelectedUser != null)
             {
-                var fileWindow = new View.FileWindow();
-                fileWindow.ShowDialog();
+                // In the part where you are opening FileWindow
+                var fileWindow = new FileWindow(SelectedUser); // Make sure selectedUser is passed correctly
+                fileWindow.DataContext = this;  // Set DataContext to LoginViewModel
+                fileWindow.Show();
+
+
                 Application.Current.Windows[0]?.Close();
             }
         }

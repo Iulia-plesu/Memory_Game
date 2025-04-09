@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using MAP_Game.Model;
+using MAP_Game.ViewModel;
+using System.Windows;
 
 namespace MAP_Game.View
 {
@@ -10,11 +12,15 @@ namespace MAP_Game.View
         public int GridColumns { get; private set; } = 4;
 
 
-        public FileWindow()
+        private LoginModel _selectedUser;  // Field to store the selected user
+
+        public FileWindow(LoginModel selectedUser)
         {
             InitializeComponent();
-            SelectedCategory = "Rustic";
+            _selectedUser = selectedUser;
+            SelectedCategory = "Rustic";  // Default category
         }
+
         private void SizeButton_Click(object sender, RoutedEventArgs e)
         {
             var sizeWindow = new GridSizeInputWindow();
@@ -50,11 +56,23 @@ namespace MAP_Game.View
             if (SelectedTime == 0)
             {
                 SelectedTime = 60;
-                return;
             }
 
-            // Start the game with the selected category and time limit
-            var gameWindow = new GameWindow(SelectedCategory, SelectedTime, GridRows, GridColumns);
+            // Access the LoginViewModel from DataContext
+            var loginViewModel = (LoginViewModel)DataContext;
+
+            // Check if SelectedUser is null
+            if (loginViewModel.SelectedUser == null)
+            {
+                MessageBox.Show("No user selected.");
+                return; // Prevent further processing if no user is selected
+            }
+
+            // Assuming LoginViewModel has a SelectedUser property
+            var username = loginViewModel.SelectedUser.Username;
+
+            // Start the game with the selected parameters
+            var gameWindow = new GameWindow(username, loginViewModel, SelectedCategory, SelectedTime, GridRows, GridColumns);
             gameWindow.Show();
             this.Close(); // Close the FileWindow when the game starts
         }
