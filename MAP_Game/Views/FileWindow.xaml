@@ -1,12 +1,108 @@
 ﻿<Window x:Class="MAP_Game.View.FileWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="File Window" Height="300" Width="400">
-    <Grid>
-        <Button Content="Category" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Height="40" Margin="0,20,0,0" Click="CategoryButton_Click"/>
-        <Button Content="New Game" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Height="40" Margin="0,70,0,0" Click="NewGameButton_Click"/>
-        <Button Content="Time" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Height="40" Margin="0,120,0,0" Click="TimeButton_Click"/>
-        <Button Content="Game size" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Height="40" Margin="0,170,0,0" Click="SizeButton_Click"/>
+        Title="Game Menu" 
+        Height="400" 
+        Width="300"
+        WindowStartupLocation="CenterScreen"
+        Background="#FAFAFA">
 
+    <Window.Resources>
+        <!-- Modern Button Style -->
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#4285F4"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="5"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#3367D6"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#2A56C6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Main container with subtle shadow -->
+        <Border Background="White"
+                CornerRadius="10"
+                BorderThickness="1"
+                BorderBrush="#E0E0E0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Padding="20"
+                Width="250">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="3" 
+                                  Opacity="0.1" 
+                                  BlurRadius="10"/>
+            </Border.Effect>
+
+            <!-- Button stack -->
+            <StackPanel Orientation="Vertical"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+
+                <!-- Category Button -->
+                <Button Content="Category"
+                        Width="180"
+                        Height="45"
+                        Margin="0,0,0,15"
+                        Click="CategoryButton_Click"
+                        Style="{StaticResource ModernButtonStyle}"/>
+
+                <!-- New Game Button -->
+                <Button Content="New Game"
+                        Width="180"
+                        Height="45"
+                        Margin="0,0,0,15"
+                        Click="NewGameButton_Click"
+                        Style="{StaticResource ModernButtonStyle}"
+                        Background="#34A853"/>
+
+                <!-- Time Button -->
+                <Button Content="Time"
+                        Width="180"
+                        Height="45"
+                        Margin="0,0,0,15"
+                        Click="TimeButton_Click"
+                        Style="{StaticResource ModernButtonStyle}"/>
+
+                <!-- Game Size Button -->
+                <Button Content="Game Size"
+                        Width="180"
+                        Height="45"
+                        Margin="0,0,0,15"
+                        Click="SizeButton_Click"
+                        Style="{StaticResource ModernButtonStyle}"/>
+
+                <!-- Statistics Button -->
+                <Button Content="Statistics"
+                        Width="180"
+                        Height="45"
+                        Click="StatisticsButton_Click"
+                        Style="{StaticResource ModernButtonStyle}"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

@@ -1,59 +1,157 @@
 ﻿<Window x:Class="MAP_Game.View.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Sign In" Height="350" Width="450" ResizeMode="NoResize">
+        Title="Sign In" 
+        Height="400" 
+        Width="530"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="#FAFAFA">
 
-    <Grid Margin="10">
-        <!-- Define Rows and Columns -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <Window.Resources>
+        <!-- Reuse the ModernButtonStyle from FileWindow -->
+        <Style x:Key="ModernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#4285F4"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="5"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#3367D6"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#2A56C6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        <!-- Style for navigation arrows -->
+        <Style x:Key="ArrowButtonStyle" TargetType="Button" BasedOn="{StaticResource ModernButtonStyle}">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Window.Resources>
 
-        <!-- Title (Centered in the first row) -->
-        <TextBlock Text="Welcome! Enjoy this game!" FontSize="16" FontWeight="Bold"
-                   HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,5,0,0"/>
+    <Grid Margin="15">
+        <!-- Main content container -->
+        <Border Background="White"
+                CornerRadius="10"
+                BorderThickness="1"
+                BorderBrush="#E0E0E0"
+                Padding="20">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="3" Opacity="0.1" BlurRadius="10"/>
+            </Border.Effect>
 
-        <!-- User List (First Column) -->
-        <ListBox ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" DisplayMemberPath="Username"
-                 Height="140" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="40,35,0,0"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-        <!-- User Image and Two Buttons (Second Column) -->
-        <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical" Margin="0,30,0,0">
-            <Image Width="100" Height="100">
-                <Image.Style>
-                    <Style TargetType="Image">
-                        <Setter Property="Source" Value="{Binding SelectedUser.DisplayImagePath}" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding SelectedUser}" Value="{x:Null}">
-                                <Setter Property="Source" Value="pack://application:,,,/Assets/image1.png" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Image.Style>
-            </Image>
+                <!-- Title -->
+                <TextBlock Text="Welcome! Enjoy this game!" 
+                           FontSize="18" 
+                           FontWeight="Bold"
+                           Foreground="#333333"
+                           HorizontalAlignment="Center" 
+                           Margin="0,0,0,20"/>
 
-            <!-- Two Buttons -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button Content="←" Width="30" Height="25" Margin="5"/>
-                <Button Content="→" Width="30" Height="25" Margin="5"/>
-            </StackPanel>
-        </StackPanel>
+                <!-- User selection area -->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-        <!-- Navigation Buttons (Centered at the bottom) -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="4" Grid.ColumnSpan="2" Margin="0,30,0,0">
-            <Button Content="New User" Command="{Binding AddUserCommand}" Width="80" Height="30" Margin="5"/>
-            <Button Content="Delete User" Command="{Binding DeleteCommand}" Width="80" Height="30" Margin="5"/>
-            <Button Content="Play" Command="{Binding PlayCommand}" Width="80" Height="30" Margin="5"/>
-            <Button Content="Cancel" Command="{Binding CancelCommand}" Width="80" Height="30" Margin="5"/>
-        </StackPanel>
+                    <!-- User List -->
+                    <Border CornerRadius="5"
+                            BorderThickness="1"
+                            BorderBrush="#E0E0E0"
+                            Padding="10"
+                            Margin="0,0,20,0">
+                        <ListBox ItemsSource="{Binding Users}" 
+                                 SelectedItem="{Binding SelectedUser}" 
+                                 DisplayMemberPath="Username"
+                                 Background="Transparent"
+                                 BorderThickness="0"/>
+                    </Border>
+
+                    <!-- User Image and Navigation -->
+                    <StackPanel Grid.Column="1" 
+                                VerticalAlignment="Center" 
+                                HorizontalAlignment="Center">
+                        <Border Width="120" 
+                                Height="120" 
+                                CornerRadius="60"
+                                BorderThickness="1"
+                                BorderBrush="#E0E0E0"
+                                Margin="0,0,0,15">
+                            <Image>
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="{Binding SelectedUser.DisplayImagePath}"/>
+                                        <Setter Property="Stretch" Value="UniformToFill"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SelectedUser}" Value="{x:Null}">
+                                                <Setter Property="Source" Value="pack://application:,,,/Assets/image1.png"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Action buttons -->
+                <StackPanel Grid.Row="2" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Center"
+                            Margin="0,20,0,0">
+                    <Button Content="New User" 
+                            Command="{Binding AddUserCommand}" 
+                            Style="{StaticResource ModernButtonStyle}"
+                            Width="100"/>
+                    <Button Content="Delete" 
+                            Command="{Binding DeleteCommand}" 
+                            Style="{StaticResource ModernButtonStyle}"
+                            Width="100"
+                            Margin="10,0"/>
+                    <Button Content="Play" 
+                            Command="{Binding PlayCommand}" 
+                            Style="{StaticResource ModernButtonStyle}"
+                            Width="100"
+                            Background="#34A853"/>
+                    <!-- Green color for Play -->
+                    <Button Content="Cancel" 
+                            Command="{Binding CancelCommand}" 
+                            Style="{StaticResource ModernButtonStyle}"
+                            Width="100"
+                            Margin="10,0"
+                            Background="#EA4335"/>
+                    <!-- Red color for Cancel -->
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

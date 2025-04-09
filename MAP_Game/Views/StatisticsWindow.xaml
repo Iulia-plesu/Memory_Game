@@ -1,0 +1,122 @@
+﻿<Window x:Class="MAP_Game.View.StatisticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Player Statistics" Height="540" Width="800"
+        WindowStartupLocation="CenterScreen"
+        Background="#FAFAFA">
+
+    <Grid Margin="10">
+        <ItemsControl ItemsSource="{Binding Users}"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Top">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" 
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Top"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Width="220" Height="220" 
+                            Margin="10" 
+                            Background="#F5F5F5"
+                            CornerRadius="8"
+                            BorderThickness="1"
+                            BorderBrush="#E0E0E0"
+                            Padding="15">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" 
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Margin="0,0,0,10">
+                                <Image Source="{Binding DisplayImagePath}" 
+                                       Width="50" Height="50"
+                                       Margin="0,0,10,0"/>
+                                <Label Content="{Binding Username}" 
+                                       FontSize="16" 
+                                       FontWeight="SemiBold"
+                                       Foreground="#333333"
+                                       VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="0"
+                                           Text="Played:" 
+                                           FontSize="13" 
+                                           Foreground="#666666"
+                                           Margin="0,0,5,5"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1"
+                                           Text="{Binding GamesPlayed}" 
+                                           FontSize="13" 
+                                           FontWeight="SemiBold"
+                                           Margin="0,0,0,5"/>
+
+                                <TextBlock Grid.Row="1" Grid.Column="0"
+                                           Text="Won:" 
+                                           FontSize="13" 
+                                           Foreground="#666666"
+                                           Margin="0,0,5,5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1"
+                                           Text="{Binding GamesWon}" 
+                                           FontSize="13" 
+                                           FontWeight="SemiBold"
+                                           Foreground="#2E7D32"
+                                           Margin="0,0,0,5"/>
+
+                                <TextBlock Grid.Row="2" Grid.Column="0"
+                                           Text="Lost:" 
+                                           FontSize="13" 
+                                           Foreground="#666666"
+                                           Margin="0,0,5,5"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1"
+                                           Text="{Binding GamesLost}" 
+                                           FontSize="13" 
+                                           FontWeight="SemiBold"
+                                           Foreground="#C62828"
+                                           Margin="0,0,0,5"/>
+
+                                <TextBlock Grid.Row="3" Grid.Column="0"
+                                           Text="Best Time:" 
+                                           FontSize="13" 
+                                           Foreground="#666666"
+                                           Margin="0,0,5,5"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1"
+                                           Text="{Binding BestTime}" 
+                                           FontSize="13" 
+                                           FontWeight="SemiBold"
+                                           Foreground="#EF6C00"
+                                           Margin="0,0,0,5"/>
+
+                                <TextBlock Grid.Row="4" Grid.Column="0"
+                                           Text="Worst Time:" 
+                                           FontSize="13" 
+                                           Foreground="#666666"
+                                           Margin="0,0,5,0"/>
+                                <TextBlock Grid.Row="4" Grid.Column="1"
+                                           Text="{Binding WorstTime}" 
+                                           FontSize="13" 
+                                           FontWeight="SemiBold"
+                                           Foreground="#D32F2F"
+                                           Margin="0,0,0,0"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Window>

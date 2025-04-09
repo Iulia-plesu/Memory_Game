@@ -11,11 +11,11 @@
             set => _imagePath = value;
         }
 
-        public int GamesPlayed { get; set; } = 0;
-        public int GamesWon { get; set; } = 0;
-        public int GamesLost { get; set; } = 0;
-        public int BestTime { get; set; } = int.MaxValue; // Lower is better
-        public int WorstTime { get; set; } = 0; // Higher is worse
+        public int GamesPlayed { get; set; }
+        public int GamesWon { get; set; }
+        public int GamesLost { get; set; }
+        public int BestTime { get; set; }
+        public int WorstTime { get; set; }
         public string DisplayImagePath
         {
             get

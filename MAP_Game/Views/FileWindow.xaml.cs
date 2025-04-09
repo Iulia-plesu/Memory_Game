@@ -87,5 +87,15 @@ namespace MAP_Game.View
                 SelectedTime = timeInputWindow.TimeLimit;
             }
         }
+        private void StatisticsButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Access the LoginViewModel to get the list of users
+            var loginViewModel = (LoginViewModel)DataContext;
+            var users = loginViewModel.Users;
+
+            // Open the statistics window and pass the list of users
+            var statisticsWindow = new StatisticsWindow();
+            statisticsWindow.Show();
+        }
     }
 }
