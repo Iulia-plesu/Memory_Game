@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\download.jpeg" />
     <None Remove="Assets\FaceDownImage.jpg" />
     <None Remove="Assets\image1.png" />
     <None Remove="Assets\image2.png" />
@@ -33,6 +34,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\download.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Categories\Mediterranean\Mediterranean_1.jpeg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

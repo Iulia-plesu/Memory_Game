@@ -1,39 +1,39 @@
 ﻿<Window x:Class="MAP_Game.View.CategorySelectionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Select Your Category" 
-        Height="300" 
-        Width="400"
+        Title="Choose Your Quest Path" 
+        Height="350" 
+        Width="500"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Background="#FAFAFA">
+        Background="Transparent">
 
     <Window.Resources>
-        <!-- Modern Button Style -->
-        <Style x:Key="ModernButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#4285F4"/>
-            <Setter Property="Foreground" Value="White"/>
+        <!-- Tavern Button Style -->
+        <Style x:Key="TavernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#800020"/>
+            <Setter Property="Foreground" Value="#FFD700"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#5D001A"/>
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontFamily" Value="Palatino Linotype"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" 
                                 Background="{TemplateBinding Background}"
-                                CornerRadius="5"
+                                CornerRadius="3"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 BorderBrush="{TemplateBinding BorderBrush}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#3367D6"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#2A56C6"/>
+                                <Setter TargetName="border" Property="Background" Value="#5D001A"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#3A0010"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -41,62 +41,84 @@
             </Setter>
         </Style>
 
-        <!-- Simple ComboBox Style -->
-        <Style x:Key="SimpleComboBoxStyle" TargetType="ComboBox">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="#333333"/>
-            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+        <!-- Tavern ComboBox Style -->
+        <Style x:Key="TavernComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="#FFF5E6"/>
+            <Setter Property="Foreground" Value="#3A0010"/>
+            <Setter Property="BorderBrush" Value="#800020"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="8"/>
             <Setter Property="Height" Value="40"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Palatino Linotype"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="TavernComboBoxItemStyle" TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="#FFF5E6"/>
+            <Setter Property="Foreground" Value="#3A0010"/>
+            <Setter Property="FontFamily" Value="Palatino Linotype"/>
         </Style>
     </Window.Resources>
 
     <Grid>
-        <!-- Main content container -->
-        <Border Background="White"
-                CornerRadius="10"
-                BorderThickness="1"
-                BorderBrush="#E0E0E0"
-                Padding="30"
+        <!-- Wooden background texture -->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/download.jpeg" Stretch="UniformToFill" Opacity="0.7"/>
+        </Grid.Background>
+
+        <!-- Main parchment panel -->
+        <Border Background="#FFF5E6" 
+                CornerRadius="8"
+                BorderThickness="2"
+                BorderBrush="#800020"
+                Margin="20"
+                Padding="25"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                Width="350">
+                Width="400">
             <Border.Effect>
-                <DropShadowEffect ShadowDepth="3" Opacity="0.1" BlurRadius="10"/>
+                <DropShadowEffect ShadowDepth="5" Opacity="0.3" BlurRadius="10"/>
             </Border.Effect>
 
             <StackPanel VerticalAlignment="Center">
                 <!-- Title -->
-                <TextBlock Text="Choose Your Category"
+                <TextBlock Text="Choose Your Quest Path"
                            FontSize="18"
                            FontWeight="Bold"
-                           Foreground="#333333"
+                           Foreground="#800020"
+                           FontFamily="Palatino Linotype"
                            Margin="0,0,0,20"
-                           HorizontalAlignment="Center"/>
+                           HorizontalAlignment="Center"
+                           TextDecorations="Underline"/>
 
                 <!-- Category ComboBox - Rustic pre-selected -->
                 <ComboBox x:Name="CategoryComboBox"
-                          Style="{StaticResource SimpleComboBoxStyle}"
+                          Style="{StaticResource TavernComboBoxStyle}"
+                          ItemContainerStyle="{StaticResource TavernComboBoxItemStyle}"
                           HorizontalAlignment="Stretch"
                           Margin="0,0,0,30"
                           SelectedIndex="1">
-                    <!-- This selects Rustic by default -->
-                    <ComboBoxItem>Antarctica</ComboBoxItem>
-                    <ComboBoxItem>Rustic</ComboBoxItem>
-                    <ComboBoxItem>Mediterranean</ComboBoxItem>
+                    <ComboBoxItem>Frozen Wastes</ComboBoxItem>
+                    <ComboBoxItem>Rustic Village</ComboBoxItem>
+                    <ComboBoxItem>Coastal Shores</ComboBoxItem>
                 </ComboBox>
 
                 <!-- Select Button -->
-                <Button Content="SELECT CATEGORY"
-                        Style="{StaticResource ModernButtonStyle}"
+                <Button Content="BEGIN QUEST"
+                        Style="{StaticResource TavernButtonStyle}"
                         HorizontalAlignment="Center"
-                        Width="180"
+                        Width="200"
                         Height="45"
+                        FontSize="16"
                         Click="SelectCategoryButton_Click"/>
             </StackPanel>
         </Border>
+
+        <!-- Ink stains -->
+        <Canvas>
+            <Ellipse Canvas.Left="30" Canvas.Top="30" Width="35" Height="20" Fill="#5D001A" Opacity="0.15"/>
+            <Ellipse Canvas.Left="380" Canvas.Top="280" Width="45" Height="25" Fill="#5D001A" Opacity="0.12"/>
+        </Canvas>
     </Grid>
 </Window>

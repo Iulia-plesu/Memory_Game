@@ -1,39 +1,39 @@
 ﻿<Window x:Class="MAP_Game.View.GridSizeInputWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Select Grid Size" 
-        Height="350" 
-        Width="350"
+        Title="Tavern Layout" 
+        Height="400" 
+        Width="430"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Background="#FAFAFA">
+        Background="Transparent">
 
     <Window.Resources>
-        <!-- Modern Button Style -->
-        <Style x:Key="ModernButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#4285F4"/>
-            <Setter Property="Foreground" Value="White"/>
+        <!-- Tavern Button Style -->
+        <Style x:Key="TavernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#800020"/>
+            <Setter Property="Foreground" Value="#FFD700"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#5D001A"/>
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontFamily" Value="Palatino Linotype"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" 
                                 Background="{TemplateBinding Background}"
-                                CornerRadius="5"
+                                CornerRadius="3"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 BorderBrush="{TemplateBinding BorderBrush}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#3367D6"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#2A56C6"/>
+                                <Setter TargetName="border" Property="Background" Value="#5D001A"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#3A0010"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -41,69 +41,89 @@
             </Setter>
         </Style>
 
-        <!-- TextBox Style -->
-        <Style x:Key="ModernTextBoxStyle" TargetType="TextBox">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="#333333"/>
-            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+        <!-- Tavern TextBox Style -->
+        <Style x:Key="TavernTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="#FFF5E6"/>
+            <Setter Property="Foreground" Value="#3A0010"/>
+            <Setter Property="BorderBrush" Value="#800020"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="8"/>
-            <Setter Property="Height" Value="35"/>
+            <Setter Property="Height" Value="40"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Palatino Linotype"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
 
-        <!-- TextBlock Style -->
-        <Style x:Key="InputLabelStyle" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#666666"/>
+        <!-- Tavern Label Style -->
+        <Style x:Key="TavernLabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#5D001A"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Palatino Linotype"/>
             <Setter Property="Margin" Value="0,0,0,5"/>
         </Style>
     </Window.Resources>
 
     <Grid>
-        <!-- Main content container -->
-        <Border Background="White"
-                CornerRadius="10"
-                BorderThickness="1"
-                BorderBrush="#E0E0E0"
+        <!-- Wooden background texture -->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/download.jpeg" Stretch="UniformToFill" Opacity="0.7"/>
+        </Grid.Background>
+
+        <!-- Main parchment panel -->
+        <Border Background="#FFF5E6" 
+                CornerRadius="8"
+                BorderThickness="2"
+                BorderBrush="#800020"
+                Margin="20"
                 Padding="25"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                Width="300">
+                Width="350">
             <Border.Effect>
-                <DropShadowEffect ShadowDepth="3" Opacity="0.1" BlurRadius="10"/>
+                <DropShadowEffect ShadowDepth="5" Opacity="0.3" BlurRadius="10"/>
             </Border.Effect>
 
             <StackPanel VerticalAlignment="Center">
                 <!-- Title -->
-                <TextBlock Text="Select Grid Dimensions"
-                           FontSize="16"
+                <TextBlock Text="Design Your Tavern"
+                           FontSize="18"
                            FontWeight="Bold"
-                           Foreground="#333333"
+                           Foreground="#800020"
+                           FontFamily="Palatino Linotype"
                            Margin="0,0,0,20"
-                           HorizontalAlignment="Center"/>
+                           HorizontalAlignment="Center"
+                           TextDecorations="Underline"/>
 
                 <!-- Rows Input -->
-                <TextBlock Text="Rows:" Style="{StaticResource InputLabelStyle}"/>
+                <TextBlock Text="Number of Tables (Rows):" 
+                           Style="{StaticResource TavernLabelStyle}"/>
                 <TextBox x:Name="RowsTextBox" 
-                         Style="{StaticResource ModernTextBoxStyle}"
+                         Style="{StaticResource TavernTextBoxStyle}"
                          Text="4"
                          Margin="0,0,0,15"/>
 
                 <!-- Columns Input -->
-                <TextBlock Text="Columns:" Style="{StaticResource InputLabelStyle}"/>
+                <TextBlock Text="Number of Benches (Columns):" 
+                           Style="{StaticResource TavernLabelStyle}"/>
                 <TextBox x:Name="ColumnsTextBox" 
-                         Style="{StaticResource ModernTextBoxStyle}"
+                         Style="{StaticResource TavernTextBoxStyle}"
                          Text="4"
                          Margin="0,0,0,25"/>
 
                 <!-- Confirm Button -->
-                <Button Content="CONFIRM"
-                        Style="{StaticResource ModernButtonStyle}"
-                        Height="40"
+                <Button Content="SET TAVERN LAYOUT"
+                        Style="{StaticResource TavernButtonStyle}"
+                        Height="45"
+                        FontSize="15"
                         Click="ConfirmButton_Click"/>
             </StackPanel>
         </Border>
+
+        <!-- Ink stains -->
+        <Canvas>
+            <Ellipse Canvas.Left="30" Canvas.Top="30" Width="35" Height="20" Fill="#5D001A" Opacity="0.15"/>
+            <Ellipse Canvas.Left="340" Canvas.Top="330" Width="45" Height="25" Fill="#5D001A" Opacity="0.12"/>
+        </Canvas>
     </Grid>
 </Window>

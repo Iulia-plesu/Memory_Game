@@ -1,108 +1,141 @@
 ﻿<Window x:Class="MAP_Game.View.FileWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Game Menu" 
-        Height="400" 
-        Width="300"
+        Title="Tavern Menu" 
+        Height="550" 
+        Width="380"
         WindowStartupLocation="CenterScreen"
-        Background="#FAFAFA">
+        ResizeMode="NoResize"
+        Background="Transparent">
 
     <Window.Resources>
-        <!-- Modern Button Style -->
-        <Style x:Key="ModernButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#4285F4"/>
-            <Setter Property="Foreground" Value="White"/>
+        <!-- Tavern Button Style -->
+        <Style x:Key="TavernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#800020"/>
+            <Setter Property="Foreground" Value="#FFD700"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#5D001A"/>
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontFamily" Value="Palatino Linotype"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" 
                                 Background="{TemplateBinding Background}"
-                                CornerRadius="5"
+                                CornerRadius="3"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 BorderBrush="{TemplateBinding BorderBrush}">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                              VerticalAlignment="Center"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#3367D6"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#2A56C6"/>
+                                <Setter TargetName="border" Property="Background" Value="#5D001A"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#3A0010"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- Special Button Style for New Game -->
+        <Style x:Key="TavernSpecialButtonStyle" TargetType="Button" BasedOn="{StaticResource TavernButtonStyle}">
+            <Setter Property="Background" Value="#5D001A"/>
+            <Setter Property="BorderBrush" Value="#3A0010"/>
+            <Setter Property="FontSize" Value="15"/>
+        </Style>
     </Window.Resources>
 
     <Grid>
-        <!-- Main container with subtle shadow -->
-        <Border Background="White"
-                CornerRadius="10"
-                BorderThickness="1"
-                BorderBrush="#E0E0E0"
+        <!-- Wooden background texture -->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/download.jpeg" Stretch="UniformToFill" Opacity="0.7"/>
+        </Grid.Background>
+
+        <!-- Main parchment panel -->
+        <Border Background="#FFF5E6" 
+                CornerRadius="8"
+                BorderThickness="2"
+                BorderBrush="#800020"
+                Margin="20"
+                Padding="20"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
-                Padding="20"
-                Width="250">
+                Width="300">
             <Border.Effect>
-                <DropShadowEffect ShadowDepth="3" 
-                                  Opacity="0.1" 
-                                  BlurRadius="10"/>
+                <DropShadowEffect ShadowDepth="5" Opacity="0.3" BlurRadius="10"/>
             </Border.Effect>
 
-            <!-- Button stack -->
             <StackPanel Orientation="Vertical"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
 
+                <!-- Title -->
+                <TextBlock Text="Tavern Menu" 
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="#800020"
+                           FontFamily="Palatino Linotype"
+                           Margin="0,0,0,20"
+                           HorizontalAlignment="Center"
+                           TextDecorations="Underline"/>
+
                 <!-- Category Button -->
-                <Button Content="Category"
-                        Width="180"
-                        Height="45"
+                <Button Content="Choose Your Quest"
+                        Width="220"
+                        Height="50"
                         Margin="0,0,0,15"
                         Click="CategoryButton_Click"
-                        Style="{StaticResource ModernButtonStyle}"/>
+                        Style="{StaticResource TavernButtonStyle}"/>
 
-                <!-- New Game Button -->
-                <Button Content="New Game"
-                        Width="180"
-                        Height="45"
+                <!-- New Game Button (special style) -->
+                <Button Content="Begin New Adventure"
+                        Width="220"
+                        Height="50"
                         Margin="0,0,0,15"
                         Click="NewGameButton_Click"
-                        Style="{StaticResource ModernButtonStyle}"
-                        Background="#34A853"/>
+                        Style="{StaticResource TavernSpecialButtonStyle}"/>
 
                 <!-- Time Button -->
-                <Button Content="Time"
-                        Width="180"
-                        Height="45"
+                <Button Content="Set Time Limit"
+                        Width="220"
+                        Height="50"
                         Margin="0,0,0,15"
                         Click="TimeButton_Click"
-                        Style="{StaticResource ModernButtonStyle}"/>
+                        Style="{StaticResource TavernButtonStyle}"/>
 
                 <!-- Game Size Button -->
-                <Button Content="Game Size"
-                        Width="180"
-                        Height="45"
+                <Button Content="Tavern Size"
+                        Width="220"
+                        Height="50"
                         Margin="0,0,0,15"
                         Click="SizeButton_Click"
-                        Style="{StaticResource ModernButtonStyle}"/>
+                        Style="{StaticResource TavernButtonStyle}"/>
 
                 <!-- Statistics Button -->
-                <Button Content="Statistics"
-                        Width="180"
-                        Height="45"
+                <Button Content="Adventure Logs"
+                        Width="220"
+                        Height="50"
+                        Margin="0,0,0,15"
                         Click="StatisticsButton_Click"
-                        Style="{StaticResource ModernButtonStyle}"/>
+                        Style="{StaticResource TavernButtonStyle}"/>
+
+                <!-- About Button -->
+                <Button Content="About the Tavern"
+                        Width="220"
+                        Height="50"
+                        Click="AboutButton_Click"
+                        Style="{StaticResource TavernButtonStyle}"/>
             </StackPanel>
         </Border>
+
+        <!-- Ink stains -->
+        <Canvas>
+            <Ellipse Canvas.Left="30" Canvas.Top="30" Width="35" Height="20" Fill="#5D001A" Opacity="0.15"/>
+            <Ellipse Canvas.Left="290" Canvas.Top="420" Width="45" Height="25" Fill="#5D001A" Opacity="0.12"/>
+        </Canvas>
     </Grid>
 </Window>

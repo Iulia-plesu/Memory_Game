@@ -97,5 +97,11 @@ namespace MAP_Game.View
             var statisticsWindow = new StatisticsWindow();
             statisticsWindow.Show();
         }
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Open the AboutWindow when the "About" button is clicked
+            var aboutWindow = new AboutWindow();
+            aboutWindow.ShowDialog();
+        }
     }
 }

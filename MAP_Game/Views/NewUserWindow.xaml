@@ -1,39 +1,39 @@
 ﻿<Window x:Class="MAP_Game.View.NewUserWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Add New Player" 
-        Height="450" 
-        Width="350"
+        Title="Register New Guest" 
+        Height="550" 
+        Width="400"
         WindowStartupLocation="CenterOwner" 
         ResizeMode="NoResize"
-        Background="#FAFAFA">
+        Background="Transparent">
 
     <Window.Resources>
-        <!-- Modern Button Style -->
-        <Style x:Key="ModernButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#4285F4"/>
-            <Setter Property="Foreground" Value="White"/>
+        <!-- Tavern Button Style -->
+        <Style x:Key="TavernButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#800020"/>
+            <Setter Property="Foreground" Value="#FFD700"/>
             <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#5D001A"/>
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontFamily" Value="Palatino Linotype"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" 
                                 Background="{TemplateBinding Background}"
-                                CornerRadius="5"
+                                CornerRadius="3"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 BorderBrush="{TemplateBinding BorderBrush}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#3367D6"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#2A56C6"/>
+                                <Setter TargetName="border" Property="Background" Value="#5D001A"/>
+                                <Setter TargetName="border" Property="BorderBrush" Value="#3A0010"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -42,38 +42,45 @@
         </Style>
 
         <!-- Arrow Button Style -->
-        <Style x:Key="ArrowButtonStyle" TargetType="Button" BasedOn="{StaticResource ModernButtonStyle}">
+        <Style x:Key="TavernArrowButtonStyle" TargetType="Button" BasedOn="{StaticResource TavernButtonStyle}">
             <Setter Property="Width" Value="30"/>
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Margin" Value="5,2"/>
+            <Setter Property="Padding" Value="0"/>
         </Style>
 
         <!-- TextBox Style -->
-        <Style x:Key="ModernTextBoxStyle" TargetType="TextBox">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="#333333"/>
-            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+        <Style x:Key="TavernTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="#FFF5E6"/>
+            <Setter Property="Foreground" Value="#3A0010"/>
+            <Setter Property="BorderBrush" Value="#800020"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="8"/>
             <Setter Property="Height" Value="35"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Palatino Linotype"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
 
     <Grid>
-        <!-- Main content container -->
-        <Border Background="White"
-                CornerRadius="10"
-                BorderThickness="1"
-                BorderBrush="#E0E0E0"
-                Padding="25"
+        <!-- Wooden background texture -->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/download.jpeg" Stretch="UniformToFill" Opacity="0.7"/>
+        </Grid.Background>
+
+        <!-- Main parchment panel -->
+        <Border Background="#FFF5E6" 
+                CornerRadius="8"
+                BorderThickness="2"
+                BorderBrush="#800020"
+                Margin="20"
+                Padding="15"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                Width="320">
+                HorizontalAlignment="Center">
             <Border.Effect>
-                <DropShadowEffect ShadowDepth="3" Opacity="0.1" BlurRadius="10"/>
+                <DropShadowEffect ShadowDepth="5" Opacity="0.3" BlurRadius="10"/>
             </Border.Effect>
 
             <Grid>
@@ -81,48 +88,88 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Image preview and navigation -->
-                <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,20">
-                    <Border Width="120" Height="120" CornerRadius="60" BorderBrush="#E0E0E0" BorderThickness="1">
-                        <Image x:Name="ImagePreview" Stretch="UniformToFill"/>
-                    </Border>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
-                        <Button Content="←" Style="{StaticResource ArrowButtonStyle}" Click="Left_Click"/>
-                        <Button Content="→" Style="{StaticResource ArrowButtonStyle}" Click="Right_Click"/>
-                    </StackPanel>
+                <!-- Title -->
+                <TextBlock Text="Register New Guest" 
+                           Grid.Row="0"
+                           FontSize="20" 
+                           FontWeight="Bold"
+                           Foreground="#800020"
+                           FontFamily="Palatino Linotype"
+                           HorizontalAlignment="Center" 
+                           Margin="0,0,0,10"
+                           TextDecorations="Underline"/>
+
+                <!-- Image preview -->
+                <Border Grid.Row="1"
+                        Width="120" 
+                        Height="120" 
+                        CornerRadius="60"
+                        BorderThickness="2"
+                        BorderBrush="#800020"
+                        Background="#FFF5E6"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,0,5">
+                    <Image x:Name="ImagePreview" 
+                           Stretch="UniformToFill"
+                           Source="/Assets/image1.png"/>
+                </Border>
+
+                <!-- Image navigation -->
+                <StackPanel Grid.Row="2"
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Center"
+                            Margin="0,0,0,15">
+                    <Button Content="←" 
+                            Style="{StaticResource TavernArrowButtonStyle}" 
+                            Click="Left_Click"/>
+                    <Button Content="→" 
+                            Style="{StaticResource TavernArrowButtonStyle}" 
+                            Click="Right_Click"/>
                 </StackPanel>
 
                 <!-- Name input -->
-                <StackPanel Grid.Row="1" Margin="0,0,0,25" HorizontalAlignment="Center">
-                    <TextBlock Text="Enter Name:" 
+                <StackPanel Grid.Row="3" 
+                            Margin="0,0,0,20" 
+                            HorizontalAlignment="Center">
+                    <TextBlock Text="Guest Name:" 
                                FontSize="14" 
-                               Foreground="#666666"
-                               Margin="0,0,0,8"/>
+                               Foreground="#800020"
+                               FontFamily="Palatino Linotype"
+                               Margin="0,0,0,5"/>
                     <TextBox x:Name="NameBox" 
                              Width="200"
-                             Style="{StaticResource ModernTextBoxStyle}"/>
+                             Style="{StaticResource TavernTextBoxStyle}"
+                             Margin="0,0,0,95"/>
                 </StackPanel>
 
-                <!-- OK/Cancel -->
-                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Content="OK" 
-                            Width="100" 
+                <!-- Action buttons -->
+                <StackPanel Grid.Row="4"
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Center">
+                    <Button Content="Register" 
+                            Width="110" 
                             Height="40"
-                            Margin="10,0" 
+                            Margin="10,30, 10, 0" 
                             Click="Ok_Click"
-                            Style="{StaticResource ModernButtonStyle}"/>
+                            Style="{StaticResource TavernButtonStyle}"/>
                     <Button Content="Cancel" 
-                            Width="100" 
+                            Width="110" 
                             Height="40"
-                            Margin="10,0" 
+                            Margin="10,30, 10, 0" 
                             Click="Cancel_Click"
-                            Style="{StaticResource ModernButtonStyle}"
-                            Background="#EA4335"/>
-                    <!-- Red color for Cancel -->
+                            Style="{StaticResource TavernButtonStyle}"
+                            Background="#3A0010"/>
                 </StackPanel>
             </Grid>
         </Border>
+
+        <!-- Ink stains -->
+        <Canvas>
+            <Ellipse Canvas.Left="30" Canvas.Top="30" Width="35" Height="20" Fill="#5D001A" Opacity="0.15"/>
+            <Ellipse Canvas.Left="340" Canvas.Top="380" Width="45" Height="25" Fill="#5D001A" Opacity="0.12"/>
+        </Canvas>
     </Grid>
 </Window>
