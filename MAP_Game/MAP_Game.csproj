@@ -15,30 +15,71 @@
     <None Remove="Assets\image3.png" />
     <None Remove="Assets\image4.png" />
     <None Remove="Assets\image5.png" />
-    <None Remove="Categories\Category_1\image1.png" />
-    <None Remove="Categories\Category_1\image2.png" />
-    <None Remove="Categories\Category_1\image3.png" />
-    <None Remove="Categories\Category_1\image4.png" />
-    <None Remove="Categories\Category_1\image5.png" />
+    <None Remove="Categories\Mediterranean\Mediterranean_1.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_10.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_11.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_12.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_13.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_14.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_15.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_2.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_3.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_4.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_5.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_6.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_7.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_8.jpeg" />
+    <None Remove="Categories\Mediterranean\Mediterranean_9.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Categories\Mediterranean\Mediterranean_1.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Categories\Mediterranean\Mediterranean_11.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Categories\Mediterranean\Mediterranean_12.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Categories\Mediterranean\Mediterranean_13.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Categories\Mediterranean\Mediterranean_14.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Categories\Mediterranean\Mediterranean_15.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Categories\Mediterranean\Mediterranean_2.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Categories\Mediterranean\Mediterranean_3.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Categories\Mediterranean\Mediterranean_4.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Categories\Mediterranean\Mediterranean_5.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Categories\Mediterranean\Mediterranean_6.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Categories\Mediterranean\Mediterranean_7.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Categories\Mediterranean\Mediterranean_8.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Categories\Mediterranean\Mediterranean_9.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+
+  <ItemGroup>
     <Resource Include="Assets\FaceDownImage.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Categories\Category_1\image1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Categories\Category_1\image2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Categories\Category_1\image3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Categories\Category_1\image4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Categories\Category_1\image5.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
@@ -55,15 +96,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\image3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Categories\Category_1\image4_1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Categories\Category_1\image4_2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Categories\Category_1\image4_3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\image4.png">

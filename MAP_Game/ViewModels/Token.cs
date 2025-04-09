@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Media.Imaging;
 
 public class Token : INotifyPropertyChanged
 {
@@ -10,7 +11,27 @@ public class Token : INotifyPropertyChanged
     public string ImagePath
     {
         get => _imagePath;
-        set { _imagePath = value; OnPropertyChanged(); }
+        set
+        {
+            _imagePath = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(ImageBitmap));
+        }
+    }
+
+    public BitmapImage ImageBitmap
+    {
+        get
+        {
+            try
+            {
+                return new BitmapImage(new Uri(ImagePath));
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 
     public bool IsFaceUp

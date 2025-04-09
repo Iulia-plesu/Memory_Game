@@ -3,11 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Category Selection" Height="200" Width="400">
     <Grid>
-        <ComboBox x:Name="CategoryComboBox" VerticalAlignment="Top" Margin="20" Height="30">
-            <ComboBoxItem Content="Category 1"/>
-            <ComboBoxItem Content="Category 2"/>
-            <ComboBoxItem Content="Category 3"/>
+        <ComboBox x:Name="CategoryComboBox">
+            <ComboBoxItem>Category_1</ComboBoxItem>
+            <ComboBoxItem>Category_2</ComboBoxItem>
+            <ComboBoxItem>Mediterranean</ComboBoxItem>
         </ComboBox>
+
 
         <Button Content="Select Category" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20" Height="40" Width="120" Click="SelectCategoryButton_Click"/>
     </Grid>

@@ -5,16 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using Newtonsoft.Json.Linq;
-using System.Windows; // Add this line
+using System.Windows;
+
 
 namespace MAP_Game.ViewModel
 {
-    public class Token
-    {
-        public string ImagePath { get; set; }
-        public bool IsFaceUp { get; set; }
-        public bool IsMatched { get; set; }
-    }
+   
 
     // GameViewModel.cs modifications
     public class GameViewModel : INotifyPropertyChanged
@@ -63,12 +59,6 @@ namespace MAP_Game.ViewModel
 
         public ICommand CardClickCommand { get; private set; }
 
-        private static readonly Dictionary<string, string> CategoryPaths = new()
-    {
-        { "Category 1", @"C:\Users\Plesu\Desktop\WPF_Game\MAP_Game\Categories\Category_1" },
-        { "Category 2", @"C:\Users\Plesu\Desktop\WPF_Game\MAP_Game\Categories\Category_2" },
-        { "Category 3", @"C:\Users\Plesu\Desktop\WPF_Game\MAP_Game\Categories\Category_3" }
-    };
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -99,19 +89,18 @@ namespace MAP_Game.ViewModel
             try
             {
                 int requiredPairs = (Rows * Columns) / 2;
-                Console.WriteLine($"Required pairs: {requiredPairs}"); // Debug
+                Console.WriteLine($"Required pairs: {requiredPairs}");
 
                 if (_availableImages == null || _availableImages.Count < requiredPairs)
                 {
                     string errorMsg = _availableImages == null
                         ? "Image list is null"
                         : $"Need {requiredPairs} unique images but only found {_availableImages.Count}";
-
                     throw new Exception(errorMsg);
                 }
 
                 var selectedImages = _availableImages.Take(requiredPairs).ToList();
-                Console.WriteLine($"Selected {selectedImages.Count} images for pairs"); // Debug
+                Console.WriteLine($"Selected {selectedImages.Count} images for pairs");
 
                 var allTokens = selectedImages.SelectMany(imagePath => new[]
                 {
@@ -119,7 +108,7 @@ namespace MAP_Game.ViewModel
             new Token { ImagePath = imagePath, IsFaceUp = false, IsMatched = false }
         }).OrderBy(t => Guid.NewGuid()).ToList();
 
-                Console.WriteLine($"Created {allTokens.Count} tokens"); // Debug
+                Console.WriteLine($"Created {allTokens.Count} tokens");
                 Tokens = allTokens;
             }
             catch (Exception ex)
@@ -128,90 +117,44 @@ namespace MAP_Game.ViewModel
                 throw;
             }
         }
-        private bool _isProcessing;
+        private bool _isProcessing = false;
 
         public void FlipToken(Token token)
         {
-            if (_isProcessing || token.IsMatched)
+            if (_isProcessing || token.IsMatched || token.IsFaceUp)
                 return;
 
-            // Flip the card
-            token.IsFaceUp = !token.IsFaceUp;
+            token.IsFaceUp = true;
+            _flippedTokens.Add(token);
 
-            if (token.IsFaceUp)
+            if (_flippedTokens.Count == 2)
             {
-                _flippedTokens.Add(token);
+                _isProcessing = true;
 
-                if (_flippedTokens.Count == 2)
+                if (_flippedTokens[0].ImagePath == _flippedTokens[1].ImagePath)
                 {
-                    _isProcessing = true;
-
-                    if (_flippedTokens[0].ImagePath == _flippedTokens[1].ImagePath)
+                    // Match found
+                    _flippedTokens[0].IsMatched = true;
+                    _flippedTokens[1].IsMatched = true;
+                    _flippedTokens.Clear();
+                    _isProcessing = false;
+                }
+                else
+                {
+                    // No match - flip back after delay
+                    Task.Delay(1000).ContinueWith(t =>
                     {
-                        // Match found
-                        _flippedTokens.ForEach(t => t.IsMatched = true);
-                        _flippedTokens.Clear();
-                        _isProcessing = false;
-                    }
-                    else
-                    {
-                        // No match - flip back after delay
-                        Task.Delay(1000).ContinueWith(_ =>
+                        Application.Current.Dispatcher.Invoke(() =>
                         {
-                            Application.Current.Dispatcher.Invoke(() =>
-                            {
-                                _flippedTokens.ForEach(t => t.IsFaceUp = false);
-                                _flippedTokens.Clear();
-                                _isProcessing = false;
-                            });
+                            _flippedTokens[0].IsFaceUp = false;
+                            _flippedTokens[1].IsFaceUp = false;
+                            _flippedTokens.Clear();
+                            _isProcessing = false;
                         });
-                    }
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
                 }
             }
         }
-        private List<string> LoadImagesFromCategory(string category)
-        {
-            var categoryPath = CategoryPaths[category];
-            return Directory.GetFiles(categoryPath, "*.png")
-                           .Select(f => new Uri(f).AbsoluteUri)
-                           .ToList();
-        }   
-
-        //public void FlipToken(Token token)
-        //{
-        //    if (token.IsMatched)
-        //        return;
-
-        //    token.IsFaceUp = !token.IsFaceUp;
-        //    if (token.IsFaceUp)
-        //    {
-        //        _flippedTokens.Add(token);
-
-        //        if (_flippedTokens.Count == 2)
-        //        {
-        //            if (_flippedTokens[0].ImagePath == _flippedTokens[1].ImagePath)
-        //            {
-        //                _flippedTokens[0].IsMatched = true;
-        //                _flippedTokens[1].IsMatched = true;
-        //            }
-        //            else
-        //            {
-        //                Task.Delay(1000).ContinueWith(t =>
-        //                {
-        //                    _flippedTokens[0].IsFaceUp = false;
-        //                    _flippedTokens[1].IsFaceUp = false;
-        //                    _flippedTokens.Clear();
-
-        //                    OnPropertyChanged(nameof(Tokens));
-        //                });
-        //            }
-
-        //            _flippedTokens.Clear();
-        //        }
-        //    }
-
-        //    OnPropertyChanged(nameof(Tokens));
-        //}
 
         protected void OnPropertyChanged(string propertyName)
         {
