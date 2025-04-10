@@ -28,7 +28,10 @@ namespace MAP_Game.View
             { "Category 3", @"C:/Users/Plesu/Desktop/WPF_Game/MAP_Game/Categories/Rustic" }
         };
 
-        public GameWindow(string username, LoginViewModel loginViewModel, string selectedCategory = null, int timeLimitInSeconds = 0, int rows = 4, int columns = 4)
+        public GameWindow(string username, LoginViewModel loginViewModel,
+                 string selectedCategory = null, int timeLimitInSeconds = 0,
+                 int rows = 4, int columns = 4,
+                 int restoredMatchedPairs = 0, List<string> restoredMatchedImagePaths = null)
         {
             InitializeComponent();
 
@@ -107,6 +110,10 @@ namespace MAP_Game.View
 
             DataContext = viewModel;
 
+            if (restoredMatchedPairs > 0 && restoredMatchedImagePaths != null)
+            {
+                viewModel.RestoreMatchedPairs(restoredMatchedPairs, restoredMatchedImagePaths);
+            }
 
         }
 
@@ -166,7 +173,29 @@ namespace MAP_Game.View
             }
         }
 
+        private void LeaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            var viewModel = (GameViewModel)DataContext;
 
+            // Get matched image paths
+            var matchedImagePaths = viewModel.Tokens
+                .Where(t => t.IsMatched)
+                .Select(t => t.ImagePath)
+                .Distinct()
+                .ToList();
+
+            _loginViewModel.UpdateLastGameStats(
+                _currentUsername,
+                _selectedCategory,
+                viewModel.Rows,
+                viewModel.Columns,
+                _remainingTime,
+                viewModel.MatchedPairsCount,
+                matchedImagePaths
+            );
+
+            this.Close();
+        }
 
     }
 }

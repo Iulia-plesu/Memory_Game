@@ -97,6 +97,29 @@ namespace MAP_Game.View
             var statisticsWindow = new StatisticsWindow();
             statisticsWindow.Show();
         }
+        private void RestoreLastGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedUser.LastCategory == null)
+            {
+                MessageBox.Show("No previous game found to restore.");
+                return;
+            }
+
+            var loginViewModel = (LoginViewModel)DataContext;
+            var gameWindow = new GameWindow(
+                _selectedUser.Username,
+                loginViewModel,
+                _selectedUser.LastCategory,
+                _selectedUser.LastTimeLeft,
+                _selectedUser.LastGridRows,
+                _selectedUser.LastGridColumns,
+                _selectedUser.LastMatchedPairs,
+                _selectedUser.LastMatchedImagePaths
+            );
+
+            gameWindow.Show();
+            this.Close();
+        }
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
             // Open the AboutWindow when the "About" button is clicked

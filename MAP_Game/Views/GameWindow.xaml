@@ -54,6 +54,18 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- Tavern Small Button Style -->
+        <Style x:Key="TavernSmallButtonStyle" TargetType="Button" BasedOn="{StaticResource TavernCardButtonStyle}">
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Foreground" Value="#FFD700"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Palatino Linotype"/>
+            <Setter Property="Margin" Value="10,0,15,0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -68,12 +80,18 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Timer Display -->
+        <!-- Timer Display with Leave Button -->
         <Border Grid.Row="0" Background="#800020" CornerRadius="8" Margin="20,10" Padding="10,5">
-            <TextBlock x:Name="TimerTextBlock"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                       Style="{StaticResource TavernTimerTextStyle}"
-                       Text="{Binding GameTime, StringFormat='Tavern Time: {0:mm\\:ss}'}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="TimerTextBlock"
+                           Style="{StaticResource TavernTimerTextStyle}"
+                           Text="{Binding GameTime, StringFormat='Tavern Time: {0:mm\\:ss}'}"/>
+
+                <Button Content="Leave"
+                        Style="{StaticResource TavernSmallButtonStyle}"
+                        Click="LeaveButton_Click"
+                        Background="#3A0010"/>
+            </StackPanel>
         </Border>
 
         <!-- Card Container -->

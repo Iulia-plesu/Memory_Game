@@ -15,6 +15,16 @@ namespace MAP_Game.ViewModel
     // GameViewModel.cs modifications
     public class GameViewModel : INotifyPropertyChanged
     {
+        private int _matchedPairsCount;
+        public int MatchedPairsCount
+        {
+            get => _matchedPairsCount;
+            set
+            {
+                _matchedPairsCount = value;
+                OnPropertyChanged(nameof(MatchedPairsCount));
+            }
+        }
         private bool _isGameActive;
         public bool IsGameActive
         {
@@ -174,17 +184,19 @@ namespace MAP_Game.ViewModel
                     _flippedTokens.Clear();
                     _isProcessing = false;
 
+                    MatchedPairsCount++; // Increment matched pairs count
+
                     // Check for win
                     if (Tokens.All(t => t.IsMatched))
                     {
                         IsGameActive = false;
-                        OnGameWon?.Invoke(); // Call back to GameWindow
+                        OnGameWon?.Invoke();
                     }
                 }
                 else
                 {
                     // No match - flip back after delay
-                    Task.Delay(1000).ContinueWith(t =>
+                    Task.Delay(500).ContinueWith(t =>
                     {
                         Application.Current.Dispatcher.Invoke(() =>
                         {
@@ -197,7 +209,20 @@ namespace MAP_Game.ViewModel
                 }
             }
         }
+        public void RestoreMatchedPairs(int matchedPairsCount, List<string> matchedImagePaths)
+        {
+            MatchedPairsCount = matchedPairsCount;
 
+            // Mark all tokens with matching image paths as matched
+            foreach (var token in Tokens)
+            {
+                if (matchedImagePaths.Contains(token.ImagePath))
+                {
+                    token.IsMatched = true;
+                    token.IsFaceUp = true;
+                }
+            }
+        }
         protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

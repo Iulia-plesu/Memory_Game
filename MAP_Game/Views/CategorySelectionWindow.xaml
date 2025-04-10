@@ -99,9 +99,9 @@
                           HorizontalAlignment="Stretch"
                           Margin="0,0,0,30"
                           SelectedIndex="1">
-                    <ComboBoxItem>Frozen Wastes</ComboBoxItem>
-                    <ComboBoxItem>Rustic Village</ComboBoxItem>
-                    <ComboBoxItem>Coastal Shores</ComboBoxItem>
+                    <ComboBoxItem>Antarctica</ComboBoxItem>
+                    <ComboBoxItem>Rustic</ComboBoxItem>
+                    <ComboBoxItem>Mediterranean</ComboBoxItem>
                 </ComboBox>
 
                 <!-- Select Button -->

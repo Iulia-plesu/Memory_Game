@@ -171,7 +171,23 @@ namespace MAP_Game.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        public void UpdateLastGameStats(string username, string category, int rows, int columns,
+                              int timeLeft, int matchedPairs, List<string> matchedImagePaths)
+        {
+            var user = Users.FirstOrDefault(u => u.Username == username);
+            if (user == null) return;
+
+            user.LastCategory = category;
+            user.LastGridRows = rows;
+            user.LastGridColumns = columns;
+            user.LastTimeLeft = timeLeft;
+            user.LastMatchedPairs = matchedPairs;
+            user.LastMatchedImagePaths = matchedImagePaths ?? new List<string>();
+
+            SaveUsers();
+        }
     }
+
 
     // Helper class to match the JSON structure
     public class UsersData
