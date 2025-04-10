@@ -38,11 +38,12 @@ A classic memory matching card game built using **WPF (Windows Presentation Foun
 
 ### 🔐 Login Page
 
-![Login Page](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABsYAAAMjCAYAAAD3MdREAAAgAElEQVR...)
+![image](https://github.com/user-attachments/assets/f20f2213-b78b-45c5-9841-b77e9dd95058)
+
 
 ### 🏆 Game Completed
 
-![Game Completed](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAoAAAAKwCAYAAADwM57xAAAgAElEQVR...)
+![image](https://github.com/user-attachments/assets/e8d9e8c7-33b6-4d9c-adc0-32138352b197)
 
 ---
 
