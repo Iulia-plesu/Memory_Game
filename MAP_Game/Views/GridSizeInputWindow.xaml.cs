@@ -18,7 +18,7 @@ namespace MAP_Game.View
                 int.TryParse(ColumnsTextBox.Text, out int cols))
             {
                 if (rows >= 2 && rows <= 6 && cols >= 2 && cols <= 6 &&
-                    (rows % 2 == 0 || cols % 2 == 0)) // At least one must be odd
+                    (rows % 2 == 0 || cols % 2 == 0)) 
                 {
                     Rows = rows;
                     Columns = cols;

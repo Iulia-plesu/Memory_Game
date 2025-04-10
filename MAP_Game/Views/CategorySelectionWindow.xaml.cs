@@ -19,11 +19,10 @@ namespace MAP_Game.View
 
             if (string.IsNullOrWhiteSpace(SelectedCategory))
             {
-                // Set default if nothing is selected
                 SelectedCategory = "Rustic";
             }
 
-            this.Close(); // Close the category selection window
+            this.Close();
         }
 
     }

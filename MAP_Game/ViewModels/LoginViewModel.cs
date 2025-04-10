@@ -35,10 +35,10 @@ namespace MAP_Game.ViewModel
         {
             Users = LoadUsers();
 
-            PlayCommand = new RelayCommand<object>((parameter) => ExecutePlay(parameter));  // Pass parameter to ExecutePlay
-            DeleteCommand = new RelayCommand<object>((parameter) => ExecuteDelete(parameter));  // Pass parameter to ExecuteDelete
-            AddUserCommand = new RelayCommand<object>((parameter) => ExecuteAddUser(parameter));  // Pass parameter to ExecuteAddUser
-            CancelCommand = new RelayCommand<object>((parameter) => ExecuteCancel(parameter));  // Pass parameter to ExecuteCancel
+            PlayCommand = new RelayCommand<object>((parameter) => ExecutePlay(parameter));  
+            DeleteCommand = new RelayCommand<object>((parameter) => ExecuteDelete(parameter));  
+            AddUserCommand = new RelayCommand<object>((parameter) => ExecuteAddUser(parameter)); 
+            CancelCommand = new RelayCommand<object>((parameter) => ExecuteCancel(parameter));  
         }
         public void UpdateStats(string username, bool isWin, int timeInSeconds)
         {
@@ -114,17 +114,14 @@ namespace MAP_Game.ViewModel
         {
             if (SelectedUser != null)
             {
-                // In the part where you are opening FileWindow
-                var fileWindow = new FileWindow(SelectedUser); // Make sure selectedUser is passed correctly
-                fileWindow.DataContext = this;  // Set DataContext to LoginViewModel
+                var fileWindow = new FileWindow(SelectedUser); 
+                fileWindow.DataContext = this;  
                 fileWindow.Show();
 
 
                 Application.Current.Windows[0]?.Close();
             }
         }
-
-        private bool CanExecutePlay(object parameter) => SelectedUser != null;
 
         private void ExecuteDelete(object parameter)
         {
@@ -188,8 +185,6 @@ namespace MAP_Game.ViewModel
         }
     }
 
-
-    // Helper class to match the JSON structure
     public class UsersData
     {
         public List<LoginModel> Users { get; set; }

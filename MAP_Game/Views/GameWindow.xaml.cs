@@ -3,10 +3,8 @@ using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MAP_Game.View
 {
@@ -19,7 +17,6 @@ namespace MAP_Game.View
         private readonly string _currentUsername;
         private readonly LoginViewModel _loginViewModel;
         private readonly int _originalTimeLimit;
-
 
         private readonly Dictionary<string, string> CategoryPaths = new()
         {
@@ -39,16 +36,8 @@ namespace MAP_Game.View
             _loginViewModel = loginViewModel;
             _originalTimeLimit = timeLimitInSeconds;
 
-            // Use default category if none provided
             _selectedCategory = string.IsNullOrWhiteSpace(selectedCategory) ? "Rustic" : selectedCategory;
-
-            // Debugging output
-            Console.WriteLine($"Selected Category: {_selectedCategory}");
-
-            // Use default time if not provided or invalid
             _remainingTime = timeLimitInSeconds > 0 ? timeLimitInSeconds : 60;
-
-            Console.WriteLine($"Game initialized with time limit: {_remainingTime}");
 
             _timer = new DispatcherTimer
             {
@@ -58,7 +47,6 @@ namespace MAP_Game.View
             _timer.Start();
 
             var images = LoadCategoryImages();
-            Console.WriteLine($"Loaded {images.Count} images from category");
 
             if (images.Count < 8)
             {
@@ -68,20 +56,15 @@ namespace MAP_Game.View
                     .ToList();
             }
 
-
-            /// Get screen size (working area)
             double screenWidth = SystemParameters.WorkArea.Width * 0.95;
             double screenHeight = SystemParameters.WorkArea.Height * 0.90;
 
-            // Estimate max card size to fit all rows/columns on screen
             double maxCardWidth = (screenWidth - 100) / columns;
             double maxCardHeight = (screenHeight - 150) / rows;
 
-            // Maintain card aspect ratio (2:3 or similar)
             double cardWidth = Math.Min(maxCardWidth, maxCardHeight * 2 / 3);
             double cardHeight = cardWidth * 1.5;
 
-            // Set window size to fit all cards plus padding
             Width = cardWidth * columns + 100;
             Height = cardHeight * rows + 150;
 
@@ -106,26 +89,20 @@ namespace MAP_Game.View
                 });
             };
 
-
-
             DataContext = viewModel;
 
             if (restoredMatchedPairs > 0 && restoredMatchedImagePaths != null)
             {
                 viewModel.RestoreMatchedPairs(restoredMatchedPairs, restoredMatchedImagePaths);
             }
-
         }
-
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            // Update the timer text
             var minutes = _remainingTime / 60;
             var seconds = _remainingTime % 60;
-            TimerTextBlock.Text = $"{minutes:D2}:{seconds:D2}"; // Ensure it's updating in the UI
+            TimerTextBlock.Text = $"{minutes:D2}:{seconds:D2}";
 
-            // Decrease the remaining time
             if (_remainingTime == 0)
             {
                 _timer.Stop();
@@ -135,7 +112,6 @@ namespace MAP_Game.View
                 int timeSpent = _originalTimeLimit - _remainingTime;
                 _loginViewModel.UpdateStats(_currentUsername, isWin: false, timeInSeconds: timeSpent);
             }
-
             else
             {
                 _remainingTime--;
@@ -163,7 +139,6 @@ namespace MAP_Game.View
                                       .Select(file => new Uri(file).AbsoluteUri)
                                       .ToList();
 
-                Console.WriteLine($"Found {images.Count} images in {imagesFolder}");
                 return images;
             }
             catch (Exception ex)
@@ -177,7 +152,6 @@ namespace MAP_Game.View
         {
             var viewModel = (GameViewModel)DataContext;
 
-            // Get matched image paths
             var matchedImagePaths = viewModel.Tokens
                 .Where(t => t.IsMatched)
                 .Select(t => t.ImagePath)
@@ -196,6 +170,5 @@ namespace MAP_Game.View
 
             this.Close();
         }
-
     }
 }

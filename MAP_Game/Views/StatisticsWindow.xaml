@@ -65,20 +65,28 @@
                                 </Border.Effect>
 
                                 <StackPanel Orientation="Vertical">
-                                    <!-- Player Header -->
+                                    <!-- Player Header with Circular Image -->
                                     <StackPanel Orientation="Horizontal" 
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
                                                 Margin="0,0,0,15">
-                                        <Border Width="60" Height="60" 
-                                                CornerRadius="30"
-                                                BorderThickness="2"
-                                                BorderBrush="#800020"
-                                                Background="#FFF5E6">
-                                            <Image Source="{Binding DisplayImagePath}" 
-                                                   Stretch="UniformToFill"
-                                                   Margin="2"/>
-                                        </Border>
+                                        <Grid Width="60" Height="60">
+                                            <!-- Background circle -->
+                                            <Ellipse Fill="#FFF5E6"
+                                                     Stroke="#800020"
+                                                     StrokeThickness="2"/>
+
+                                            <!-- Clipped image -->
+                                            <Ellipse>
+                                                <Ellipse.Fill>
+                                                    <ImageBrush ImageSource="{Binding DisplayImagePath}" 
+                                                               Stretch="UniformToFill"/>
+                                                </Ellipse.Fill>
+                                                <Ellipse.Clip>
+                                                    <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30"/>
+                                                </Ellipse.Clip>
+                                            </Ellipse>
+                                        </Grid>
                                         <Label Content="{Binding Username}" 
                                                Style="{StaticResource TavernUsernameStyle}"
                                                Margin="10,0,0,0"/>

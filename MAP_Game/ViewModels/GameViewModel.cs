@@ -10,9 +10,6 @@ using System.Windows;
 
 namespace MAP_Game.ViewModel
 {
-   
-
-    // GameViewModel.cs modifications
     public class GameViewModel : INotifyPropertyChanged
     {
         private int _matchedPairsCount;
@@ -52,7 +49,7 @@ namespace MAP_Game.ViewModel
             set { _cardHeight = value; OnPropertyChanged(nameof(CardHeight)); }
         }
 
-        private int _rows = 4; 
+        private int _rows = 4;
         private int _columns = 4;
 
         public int Rows
@@ -77,8 +74,6 @@ namespace MAP_Game.ViewModel
             }
         }
 
-        // Modify LoadTokens to use Rows*Columns for the grid size
-        
 
         private string _selectedCategory;
         private List<Token> _tokens;
@@ -107,8 +102,6 @@ namespace MAP_Game.ViewModel
                 _selectedCategory = selectedCategory;
                 _availableImages = imagePaths ?? throw new ArgumentNullException(nameof(imagePaths));
 
-                Console.WriteLine($"Available images count: {_availableImages.Count}"); // Debug
-
                 LoadTokens();
                 _flippedTokens = new List<Token>();
                 CardClickCommand = new RelayCommand<Token>((token) => FlipToken(token));
@@ -116,7 +109,7 @@ namespace MAP_Game.ViewModel
             catch (Exception ex)
             {
                 Console.WriteLine($"Error initializing GameViewModel: {ex.Message}");
-                throw; // Re-throw to see the error in debugger
+                throw; 
             }
         }
         public void EndGame()
@@ -125,7 +118,7 @@ namespace MAP_Game.ViewModel
         }
 
 
-        private List<string> _availableImages; // Add this field
+        private List<string> _availableImages; 
 
         private void LoadTokens()
         {
@@ -162,7 +155,7 @@ namespace MAP_Game.ViewModel
         }
         private bool _isProcessing = false;
 
-        public Action OnGameWon { get; set; } // Add this delegate for notifying the GameWindow
+        public Action OnGameWon { get; set; } 
 
         public void FlipToken(Token token)
         {
@@ -178,15 +171,13 @@ namespace MAP_Game.ViewModel
 
                 if (_flippedTokens[0].ImagePath == _flippedTokens[1].ImagePath)
                 {
-                    // Match found
                     _flippedTokens[0].IsMatched = true;
                     _flippedTokens[1].IsMatched = true;
                     _flippedTokens.Clear();
                     _isProcessing = false;
 
-                    MatchedPairsCount++; // Increment matched pairs count
+                    MatchedPairsCount++;
 
-                    // Check for win
                     if (Tokens.All(t => t.IsMatched))
                     {
                         IsGameActive = false;
@@ -195,7 +186,6 @@ namespace MAP_Game.ViewModel
                 }
                 else
                 {
-                    // No match - flip back after delay
                     Task.Delay(500).ContinueWith(t =>
                     {
                         Application.Current.Dispatcher.Invoke(() =>
@@ -213,7 +203,6 @@ namespace MAP_Game.ViewModel
         {
             MatchedPairsCount = matchedPairsCount;
 
-            // Mark all tokens with matching image paths as matched
             foreach (var token in Tokens)
             {
                 if (matchedImagePaths.Contains(token.ImagePath))
@@ -230,3 +219,5 @@ namespace MAP_Game.ViewModel
     }
 
 }
+
+

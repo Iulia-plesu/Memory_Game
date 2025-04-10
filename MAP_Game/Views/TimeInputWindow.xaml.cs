@@ -25,19 +25,16 @@ namespace MAP_Game.View
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
-            // Check if the input is a valid number and greater than 0
             if (int.TryParse(TimeInputTextBox.Text, out int time) && time > 0)
             {
-                TimeLimit = time; // Use valid user input
+                TimeLimit = time; 
             }
             else
             {
-                // If input is invalid, use default time limit (60 seconds)
                 MessageBox.Show("Invalid input. Using default time limit of 60 seconds.");
                 TimeLimit = 60;
             }
 
-            // Close the window and signal that a valid result was set
             DialogResult = true;
         }
     }

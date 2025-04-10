@@ -16,6 +16,10 @@
     <None Remove="Assets\image3.png" />
     <None Remove="Assets\image4.png" />
     <None Remove="Assets\image5.png" />
+    <None Remove="Assets\image6.png" />
+    <None Remove="Assets\image7.png" />
+    <None Remove="Assets\image8.png" />
+    <None Remove="Assets\image9.png" />
     <None Remove="Categories\Mediterranean\Mediterranean_1.jpeg" />
     <None Remove="Categories\Mediterranean\Mediterranean_10.jpeg" />
     <None Remove="Categories\Mediterranean\Mediterranean_11.jpeg" />
@@ -106,6 +110,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\image5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\image6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\image7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\image8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\image9.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

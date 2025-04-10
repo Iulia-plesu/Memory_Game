@@ -14,11 +14,10 @@ namespace MAP_Game.View
         {
             InitializeComponent();
             Users = LoadUsers();
-            // Set the DataContext to the current window so that we can bind to it
+
             this.DataContext = this;
         }
 
-        // Method to load users from the JSON file
         private ObservableCollection<LoginModel> LoadUsers()
         {
             var userFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "users.json");
@@ -41,7 +40,6 @@ namespace MAP_Game.View
         }
     }
 
-    // Helper class to match the JSON structure
     public class UsersData
     {
         public List<LoginModel> Users { get; set; }

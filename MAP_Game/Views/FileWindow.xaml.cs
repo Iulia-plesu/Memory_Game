@@ -12,13 +12,13 @@ namespace MAP_Game.View
         public int GridColumns { get; private set; } = 4;
 
 
-        private LoginModel _selectedUser;  // Field to store the selected user
+        private LoginModel _selectedUser;  
 
         public FileWindow(LoginModel selectedUser)
         {
             InitializeComponent();
             _selectedUser = selectedUser;
-            SelectedCategory = "Rustic";  // Default category
+            SelectedCategory = "Rustic"; 
         }
 
         private void SizeButton_Click(object sender, RoutedEventArgs e)
@@ -33,7 +33,6 @@ namespace MAP_Game.View
 
         private void CategoryButton_Click(object sender, RoutedEventArgs e)
         {
-            // Show the category selection window
             var categoryWindow = new CategorySelectionWindow();
             categoryWindow.ShowDialog();
 
@@ -45,55 +44,45 @@ namespace MAP_Game.View
 
         private void NewGameButton_Click(object sender, RoutedEventArgs e)
         {
-            // Ensure a category is selected
             if (string.IsNullOrEmpty(SelectedCategory))
             {
                 MessageBox.Show("Please select a category first.");
                 return;
             }
 
-            // Ensure a time limit is selected
             if (SelectedTime == 0)
             {
                 SelectedTime = 60;
             }
 
-            // Access the LoginViewModel from DataContext
             var loginViewModel = (LoginViewModel)DataContext;
 
-            // Check if SelectedUser is null
             if (loginViewModel.SelectedUser == null)
             {
                 MessageBox.Show("No user selected.");
-                return; // Prevent further processing if no user is selected
+                return; 
             }
 
-            // Assuming LoginViewModel has a SelectedUser property
             var username = loginViewModel.SelectedUser.Username;
 
-            // Start the game with the selected parameters
             var gameWindow = new GameWindow(username, loginViewModel, SelectedCategory, SelectedTime, GridRows, GridColumns);
             gameWindow.Show();
-            this.Close(); // Close the FileWindow when the game starts
+            this.Close(); 
         }
 
         private void TimeButton_Click(object sender, RoutedEventArgs e)
         {
-            // Show a dialog to enter time limit
             var timeInputWindow = new TimeInputWindow();
             if (timeInputWindow.ShowDialog() == true)
             {
-                // The user entered a valid time, store it
                 SelectedTime = timeInputWindow.TimeLimit;
             }
         }
         private void StatisticsButton_Click(object sender, RoutedEventArgs e)
         {
-            // Access the LoginViewModel to get the list of users
             var loginViewModel = (LoginViewModel)DataContext;
             var users = loginViewModel.Users;
 
-            // Open the statistics window and pass the list of users
             var statisticsWindow = new StatisticsWindow();
             statisticsWindow.Show();
         }
@@ -122,7 +111,6 @@ namespace MAP_Game.View
         }
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
-            // Open the AboutWindow when the "About" button is clicked
             var aboutWindow = new AboutWindow();
             aboutWindow.ShowDialog();
         }

@@ -102,20 +102,29 @@
                            Margin="0,0,0,10"
                            TextDecorations="Underline"/>
 
-                <!-- Image preview -->
-                <Border Grid.Row="1"
-                        Width="120" 
-                        Height="120" 
-                        CornerRadius="60"
-                        BorderThickness="2"
-                        BorderBrush="#800020"
-                        Background="#FFF5E6"
-                        HorizontalAlignment="Center"
-                        Margin="0,0,0,5">
-                    <Image x:Name="ImagePreview" 
-                           Stretch="UniformToFill"
-                           Source="/Assets/image1.png"/>
-                </Border>
+                <!-- Circular Image preview -->
+                <Grid Grid.Row="1" 
+                      Width="120" 
+                      Height="120"
+                      HorizontalAlignment="Center"
+                      Margin="0,0,0,5">
+                    <!-- Background circle -->
+                    <Ellipse Fill="#FFF5E6"
+                             Stroke="#800020"
+                             StrokeThickness="2"/>
+
+                    <!-- Clipped image -->
+                    <Ellipse>
+                        <Ellipse.Fill>
+                            <ImageBrush x:Name="ImagePreview" 
+                                       Stretch="UniformToFill"
+                                       ImageSource="/Assets/image1.png"/>
+                        </Ellipse.Fill>
+                        <Ellipse.Clip>
+                            <EllipseGeometry Center="60,60" RadiusX="60" RadiusY="60"/>
+                        </Ellipse.Clip>
+                    </Ellipse>
+                </Grid>
 
                 <!-- Image navigation -->
                 <StackPanel Grid.Row="2"
