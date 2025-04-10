@@ -20,15 +20,15 @@ namespace MAP_Game.View
 
         private readonly Dictionary<string, string> CategoryPaths = new()
         {
-            { "Category 1", @"C:/Users/Plesu/Desktop/WPF_Game/MAP_Game/Categories/Mediterranean" },
-            { "Category 2", @"C:/Users/Plesu/Desktop/WPF_Game/MAP_Game/Categories/Antarctica" },
-            { "Category 3", @"C:/Users/Plesu/Desktop/WPF_Game/MAP_Game/Categories/Rustic" }
+            { "Mediterranean", @"Categories\Mediterranean" },
+            { "Antarctica", @"Categories\Antarctica" },
+            { "Rustic", @"Categories\Rustic" }
         };
 
         public GameWindow(string username, LoginViewModel loginViewModel,
-                 string selectedCategory = null, int timeLimitInSeconds = 0,
-                 int rows = 4, int columns = 4,
-                 int restoredMatchedPairs = 0, List<string> restoredMatchedImagePaths = null)
+                          string selectedCategory = null, int timeLimitInSeconds = 0,
+                          int rows = 4, int columns = 4,
+                          int restoredMatchedPairs = 0, List<string> restoredMatchedImagePaths = null)
         {
             InitializeComponent();
 
@@ -123,7 +123,7 @@ namespace MAP_Game.View
             try
             {
                 string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-                string imagesFolder = Path.Combine(baseDir, "..", "..", "..", "Categories", _selectedCategory);
+                string imagesFolder = Path.Combine(baseDir, CategoryPaths[_selectedCategory]);
                 imagesFolder = Path.GetFullPath(imagesFolder);
 
                 var imageExtensions = new[] { ".jpg", ".jpeg", ".png", ".bmp", ".gif" };
@@ -135,10 +135,11 @@ namespace MAP_Game.View
                 }
 
                 var images = Directory.GetFiles(imagesFolder)
-                                      .Where(file => imageExtensions.Contains(Path.GetExtension(file).ToLower()))
-                                      .Select(file => new Uri(file).AbsoluteUri)
-                                      .ToList();
+                    .Where(file => imageExtensions.Contains(Path.GetExtension(file).ToLower()))
+                    .Select(file => new Uri(file).AbsoluteUri)
+                    .ToList();
 
+                Console.WriteLine($"Found {images.Count} images in {imagesFolder}");
                 return images;
             }
             catch (Exception ex)
