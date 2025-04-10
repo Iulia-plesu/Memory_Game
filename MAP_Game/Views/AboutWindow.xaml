@@ -63,7 +63,7 @@
                 <!-- Tavern Keeper -->
                 <TextBlock Text="Tavern Keeper:" 
                            Style="{StaticResource TavernHeaderStyle}"/>
-                <TextBlock Text="John Doe" 
+                <TextBlock Text="Iulia" 
                            Style="{StaticResource TavernTextStyle}"
                            FontSize="16"/>
 
@@ -71,7 +71,7 @@
                 <TextBlock Text="Scroll Identifier:" 
                            Style="{StaticResource TavernHeaderStyle}"
                            Margin="0,15,0,0"/>
-                <TextBlock Text="ABC123" 
+                <TextBlock Text="123" 
                            Style="{StaticResource TavernTextStyle}"/>
 
                 <!-- Contact -->
@@ -79,9 +79,9 @@
                            Style="{StaticResource TavernHeaderStyle}"
                            Margin="0,15,0,0"/>
                 <TextBlock Style="{StaticResource TavernTextStyle}">
-                    <Hyperlink NavigateUri="mailto:contact@developer.com" 
-                               Style="{StaticResource TavernHyperlinkStyle}">
-                        contact@developer.com
+                    <Hyperlink Style="{StaticResource TavernHyperlinkStyle}"
+                               Click="EmailHyperlink_Click">
+                        email@gmail.ro
                     </Hyperlink>
                 </TextBlock>
             </StackPanel>
