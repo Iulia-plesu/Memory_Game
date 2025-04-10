@@ -85,11 +85,11 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="TimerTextBlock"
                            Style="{StaticResource TavernTimerTextStyle}"
-                           Text="{Binding GameTime, StringFormat='Tavern Time: {0:mm\\:ss}'}"/>
+                           Text="{Binding TimeDisplay, StringFormat='Tavern Time: {0:mm\\:ss}'}"/>
 
                 <Button Content="Leave"
                         Style="{StaticResource TavernSmallButtonStyle}"
-                        Click="LeaveButton_Click"
+                        Command="{Binding LeaveCommand}"
                         Background="#3A0010"/>
             </StackPanel>
         </Border>
