@@ -77,6 +77,6 @@ A classic memory matching card game built using **WPF (Windows Presentation Foun
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/MemoryGame.git
-cd MemoryGame
+git clone https://github.com/your-username/Memory_Game.git
+cd Memory_Game
 ---
